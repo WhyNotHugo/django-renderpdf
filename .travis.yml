@@ -8,19 +8,28 @@ python:
   - 3.7-dev
   - pypy3.3-5.2-alpha1
 
+env:
+  - TOXENV=py
+
 stages:
   - test
   - name: deploy
     if: tag IS present
 
 install:
-  - pip install flake8
+  - pip install tox codecov
 
 script:
-  - flake8
+  - tox
+
+after_script:
+  - codecov
 
 jobs:
   include:
+    - env: TOXENV=flake8
+      python: 3.6
+
     - stage: deploy
       script:
         - pip install wheel twine

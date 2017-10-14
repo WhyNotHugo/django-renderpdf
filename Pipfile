@@ -6,13 +6,11 @@ name = "pypi"
 [packages]
 "e1839a8" = {path = ".", editable = true}
 
-
-
 [dev-packages]
-
 coverage = "*"
 "flake8" = "*"
 "flake8-bugbear" = "*"
 "flake8-comprehensions" = "*"
 "flake8-quotes" = "*"
 "flake8-import-order" = "*"
+ipdb = "*"

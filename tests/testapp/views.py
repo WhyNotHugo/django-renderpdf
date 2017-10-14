@@ -14,12 +14,12 @@ class NoPromptDownloadView(PDFView):
 
 class AllowForceHtmlView(PDFView):
     template_name = 'test_template.html'
-    allow_force_html = False
+    allow_force_html = True
 
 
 class DisallowForceHtmlView(PDFView):
     template_name = 'test_template.html'
-    allow_force_html = True
+    allow_force_html = False
 
 
 class TemplateWithStaticFileView(PDFView):
