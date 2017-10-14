@@ -1,6 +1,6 @@
 from django.test import RequestFactory, TestCase
 
-from testapp.testmain import views
+from testapp import views
 
 factory = RequestFactory()
 
