@@ -1,5 +1,5 @@
 django-renderpdf
-==============
+================
 
 **django-renderpdf** is a Django app to render django templates as PDF files.
 
