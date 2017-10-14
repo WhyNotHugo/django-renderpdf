@@ -65,5 +65,4 @@ shipments:
 Licence
 -------
 
-Django-renderpdf is licensed under the ISC licence. See LICENCE for details.
-
+django-renderpdf is licensed under the ISC licence. See LICENCE for details.
