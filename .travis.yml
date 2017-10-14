@@ -1,0 +1,34 @@
+language: python
+cache: pip
+
+python:
+  - 3.4
+  - 3.5
+  - 3.6
+  - 3.7-dev
+  - pypy3.3-5.2-alpha1
+
+stages:
+  - test
+  - name: deploy
+    if: tag IS present
+
+install:
+  - pip install flake8
+
+script:
+  - flake8
+
+jobs:
+  include:
+    - stage: deploy
+      script:
+        - pip install wheel twine
+        - python setup.py sdist bdist_wheel
+        - twine upload -u $PYPI_USERNAME -p $PYPI_PASSWORD dist/*
+    - stage: deploy
+      script:
+        - pip install wheel
+        - python setup.py sdist bdist_wheel
+        - gem install dpl
+        - dpl --api-key=$RELEASES_TOKEN --provider=releases --file=dist/* --file_glob=true
