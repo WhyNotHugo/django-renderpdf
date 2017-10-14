@@ -8,7 +8,7 @@ Introduction
 
 Rendering PDFs for web developers is generally pretty non-trivial, and there's
 no common approach to doing this. django-renderpdf attempts to allow reusing
-all the known tools and stills when generating a PDF file in a Django app:
+all the known tools and skills when generating a PDF file in a Django app:
 
 * Use Django template files, which are internally rendered as HTML and them PDF
   files.
