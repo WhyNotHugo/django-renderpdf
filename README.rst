@@ -31,6 +31,37 @@ Because of this, documentation is still a work in progress (the code far
 outdates this API being public), and while unit tests are lacking, this code
 has had ample field testing
 
+Usage example
+-------------
+
+Sorry, no docs yet! Though ``PDFView``'s methods has extensive docstrings you
+should check.
+
+Here's a usage code example for a view that generates some PDF labels for some
+shipments:
+
+.. code-block:: python
+
+    class LabelsView(LoginRequiredMixin, PDFView):
+        template_name = 'my_app/labels.html'
+
+        def get_context_data(self, *args, **kwargs):
+            context = super().get_context_data(*args, **kwargs)
+
+            context['shipments'] = models.Shipment.objects.filter(
+                batch_id=kwargs['pk'],
+            )
+
+            return context
+
+.. code-block:: python
+
+    url(
+        r'^/shipments/labels/(?P<pk>\d+)/$',
+        views.LabelsView.as_view(),
+        name='shipment_labels',
+    ),
+
 Licence
 -------
 
