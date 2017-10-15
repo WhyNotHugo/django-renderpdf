@@ -70,6 +70,8 @@ shipments:
 
             return context
 
+And in ``urls.py``:
+
 .. code-block:: python
 
     url(
