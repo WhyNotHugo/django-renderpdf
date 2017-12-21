@@ -27,8 +27,20 @@ def staticfiles_url_fetcher(url):
         filename = url.replace(base_url, '', 1)
 
         path = finders.find(filename)
-        with open(path, 'rb') as f:
+        if path:
+            # This should match most cases. Manifest static files with relative
+            # URLs will only be picked up in DEBUG mode here.
+            with open(path, 'rb') as f:
+                data = f.read()
+        else:
+            # This should just match things like Manifest static files with
+            # relative URLs. While this code path will expect `collectstatic`
+            # to have run, it should only be reached on if DEBUG = False.
+
+            # XXX: Only Django >= 2.0 supports using this as a context manager:
+            f = staticfiles_storage.open(filename)
             data = f.read()
+            f.close()
 
         return {
             'string': data,
