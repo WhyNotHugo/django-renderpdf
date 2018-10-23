@@ -107,6 +107,7 @@ class PDFView(View, ContextMixin):
             )
             return response
 
+    # Move all the above into BasePdfView, which can be subclassed for posting
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
         return self.render(
