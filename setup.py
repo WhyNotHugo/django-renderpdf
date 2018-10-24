@@ -12,7 +12,7 @@ setup(
     packages=['django_renderpdf'],
     include_package_data=True,
     install_requires=[
-        'django',
+        'django>=2.0',
         'weasyprint',
     ],
     long_description=open('README.rst').read(),
