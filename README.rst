@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FWhyNotHugo%2Fdjango-renderpdf.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FWhyNotHugo%2Fdjango-renderpdf?ref=badge_shield)
+
 django-renderpdf
 ================
 
@@ -84,3 +86,6 @@ Licence
 -------
 
 django-renderpdf is licensed under the ISC licence. See LICENCE for details.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FWhyNotHugo%2Fdjango-renderpdf.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FWhyNotHugo%2Fdjango-renderpdf?ref=badge_large)
