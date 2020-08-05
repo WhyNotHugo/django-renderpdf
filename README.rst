@@ -49,23 +49,31 @@ sense to move this into a separate library.
 
 Because of this, documentation is still a work in progress (the code far
 outdates this API being public), and while unit tests are lacking, this code
-has had ample field testing
+has had ample field testing.
 
 Usage example
 -------------
 
-Sorry, no docs yet! Though ``PDFView``'s methods has extensive docstrings you
-should check.
+Hint: Though ``PDFView``'s methods has extensive docstrings you should check.
 
-Here's a usage code example for a view that generates some PDF labels for some
-shipments:
+Let's assume we have some ``Shipment`` object, and we want to print PDF labels for it.
+Here's a usage code example for a view that does that.
 
 .. code-block:: python
 
+    from django.contrib.auth.mixins import LoginRequiredMixin
+    from django_renderpdf.views import PDFView
+
+
     class LabelsView(LoginRequiredMixin, PDFView):
+        """Generate labels for some Shipments.
+
+        A PDFView behaves pretty much like a TemplateView, so you can treat it as such.
+        """
         template_name = 'my_app/labels.html'
 
         def get_context_data(self, *args, **kwargs):
+            """Pass some extra context to the template."""
             context = super().get_context_data(*args, **kwargs)
 
             context['shipments'] = models.Shipment.objects.filter(
@@ -92,7 +100,7 @@ Changelog
 v2.0.0
 ~~~~~~
 
-- Support for Python 3.7 and 3.8.
+- Support Python 3.7 and 3.8.
 - Support Django 2.2, 3.0 and 3.1.
 - Drop support for Django < 2.2.
 
