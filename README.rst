@@ -13,6 +13,10 @@ django-renderpdf
   :target: https://pypi.python.org/pypi/django-renderpdf
   :alt: Version on PyPI
 
+.. image:: https://img.shields.io/pypi/pyversions/django-renderpdf.svg
+  :target: https://pypi.org/project/django-renderpdf/
+  :alt: Python versions
+
 .. image:: https://img.shields.io/pypi/l/django-renderpdf.svg
   :target: https://github.com/WhyNotHugo/django-renderpdf/blob/master/LICENCE
   :alt: Licence
