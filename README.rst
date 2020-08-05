@@ -86,6 +86,16 @@ And in ``urls.py``:
         name='shipment_labels',
     ),
 
+Changelog
+---------
+
+v2.0.0
+~~~~~~
+
+- Support for Python 3.7 and 3.8.
+- Support Django 2.2, 3.0 and 3.1.
+- Drop support for Django < 2.2.
+
 Licence
 -------
 
