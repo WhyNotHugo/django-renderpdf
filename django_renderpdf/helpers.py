@@ -23,7 +23,7 @@ def staticfiles_url_fetcher(url: str):
     resources data as a string and ``mime_type``, which is the identified
     mime type for the resource.
     """
-    if url.startswith("/") or url.startswith(staticfiles_storage.base_url):
+    if url.startswith(staticfiles_storage.base_url):
         filename = url.replace(staticfiles_storage.base_url, "", 1)
 
         path = finders.find(filename)
