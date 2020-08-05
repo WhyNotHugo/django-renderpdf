@@ -74,8 +74,10 @@ And in ``urls.py``:
 
 .. code-block:: python
 
-    url(
-        r'^/shipments/labels/(?P<pk>\d+)/$',
+    from django.urls import path
+
+    path(
+        '/shipments/labels/<int:pk>/',
         views.LabelsView.as_view(),
         name='shipment_labels',
     ),
