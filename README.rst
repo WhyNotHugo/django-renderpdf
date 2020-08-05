@@ -13,6 +13,10 @@ django-renderpdf
   :target: https://pypi.python.org/pypi/django-renderpdf
   :alt: Version on PyPI
 
+.. image:: https://img.shields.io/pypi/pyversions/django-renderpdf.svg
+  :target: https://pypi.org/project/django-renderpdf/
+  :alt: Python versions
+
 .. image:: https://img.shields.io/pypi/l/django-renderpdf.svg
   :target: https://github.com/WhyNotHugo/django-renderpdf/blob/master/LICENCE
   :alt: Licence
@@ -74,11 +78,23 @@ And in ``urls.py``:
 
 .. code-block:: python
 
-    url(
-        r'^/shipments/labels/(?P<pk>\d+)/$',
+    from django.urls import path
+
+    path(
+        '/shipments/labels/<int:pk>/',
         views.LabelsView.as_view(),
         name='shipment_labels',
     ),
+
+Changelog
+---------
+
+v2.0.0
+~~~~~~
+
+- Support for Python 3.7 and 3.8.
+- Support Django 2.2, 3.0 and 3.1.
+- Drop support for Django < 2.2.
 
 Licence
 -------
