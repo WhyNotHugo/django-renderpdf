@@ -97,6 +97,11 @@ And in ``urls.py``:
 Changelog
 ---------
 
+v2.0.1
+~~~~~~
+
+- Improve handling of remote ``staticfiles``.
+
 v2.0.0
 ~~~~~~
 
