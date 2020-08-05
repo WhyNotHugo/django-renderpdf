@@ -7,6 +7,10 @@ setup(
     author="Hugo Osvaldo Barrera",
     author_email="hugo@barrera.io",
     url="https://github.com/WhyNotHugo/django-renderpdf",
+    project_urls={
+        "GitHub": "https://github.com/WhyNotHugo/django-renderpdf",
+        "Funding": "https://github.com/sponsors/WhyNotHugo",
+    },
     license="ISC",
     packages=["django_renderpdf"],
     include_package_data=True,

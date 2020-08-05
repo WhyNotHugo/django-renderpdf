@@ -31,6 +31,7 @@ class PDFView(View, ContextMixin):
         can be overriden by defining ``get_download_name``.
 
     """
+
     template_name = None
     allow_force_html = True
     prompt_download = False
@@ -39,10 +40,10 @@ class PDFView(View, ContextMixin):
     @staticmethod
     def url_fetcher(url):
         """
-        Returns the file matching url.
+        Returns the file matching URL.
 
         This method will handle any URL resources that rendering HTML requires
-        (eg: images pointed my ``img`` tags, stylesheets, etc).
+        (e.g.: images in ``img`` tags, stylesheets, etc.).
 
         The default behaviour will fetch any http(s) files normally, and will
         also attempt to resolve staticfiles internally.
@@ -91,14 +92,15 @@ class PDFView(View, ContextMixin):
         if both ``allow_force_html`` is ``True`` and the querystring
         ``html=true`` was set it will return a plain HTML.
         """
-        if self.allow_force_html and self.request.GET.get('html', False):
+        if self.allow_force_html and self.request.GET.get("html", False):
             html = get_template(template).render(context)
             return HttpResponse(html)
         else:
-            response = HttpResponse(content_type='application/pdf')
+            response = HttpResponse(content_type="application/pdf")
             if self.prompt_download:
-                response['Content-Disposition'] = 'attachment; filename="{}"' \
-                    .format(self.get_download_name())
+                response["Content-Disposition"] = 'attachment; filename="{}"'.format(
+                    self.get_download_name()
+                )
             helpers.render_pdf(
                 template=template,
                 file_=response,
@@ -111,7 +113,5 @@ class PDFView(View, ContextMixin):
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(*args, **kwargs)
         return self.render(
-            request=request,
-            template=self.get_template_name(),
-            context=context,
+            request=request, template=self.get_template_name(), context=context,
         )
