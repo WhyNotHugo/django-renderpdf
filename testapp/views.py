@@ -34,3 +34,12 @@ class CssView(View):
 
     def get(self, request):
         return HttpResponse("* { background-color: red; }")
+
+
+class NoTemplateDefinedView(PDFView):
+    """A view that's missing a template_name."""
+
+
+class PromptWithMissingDownloadNameView(PDFView):
+    template_name = "test_template.html"
+    prompt_download = True

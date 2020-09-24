@@ -1,8 +1,9 @@
+from typing import List
 from typing import Optional
 
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
-from django.template.loader import get_template
+from django.template.loader import select_template
 from django.views.generic import View
 from django.views.generic.base import ContextMixin
 
@@ -30,25 +31,40 @@ class PDFView(View, ContextMixin):
 
         Allow forcing this view to return a rendered HTML response, rather than a PDF
         response.  If ``True``, any requests with the URL parameter ``html=true`` will
-        be rendered as plain HTML. This can be useful during development, but may be
-        desirable in some production scenarios.
+        be rendered as plain HTML. This can be useful for debugging, but also allows
+        reusing the same view for exposing both PDFs and HTML.
 
     .. autoattribute:: prompt_download
 
         If ``True``, users will be prompted to download the PDF file, rather than have
         it rendered by their browsers.
 
+        This is achieved by setting the "Content-Disposition" HTTP header. If this
+        attribute is ``True``, then either :attr:`~download_name` or
+        :func:`~get_download_name` must be defined.
+
     .. autoattribute:: download_name
 
-        The filename with which users will be prompted to save this file as by default.
-        This can be overridden by defining ``get_download_name``.
+        When ``prompt_download`` is set to ``True``, browsers will be instructed to
+        prompt users to download the file, rather than render it.
 
-        Only required if ``prompt_download = True``.
+        In these cases, a default filename is presented. If you need custom filenames,
+        you may override this attribute with a property:
 
-    The following methods may also be overridend to further customise subclasses:
+        .. code:: python
+
+            @property
+            def download_name(self) -> str:
+                return f"document_{self.request.kwargs['pk']}.pdf"
+
+        This attribute has no effect if ``prompt_download = False``.
+
+    The following methods may also be overridden to further customise subclasses:
 
     .. automethod:: url_fetcher
+    .. automethod:: get_template_names
     .. automethod:: get_download_name
+    .. automethod:: get_template_name
     """
 
     template_name: Optional[str] = None
@@ -63,33 +79,57 @@ class PDFView(View, ContextMixin):
         (e.g.: images in ``img`` tags, stylesheets, etc.).
 
         The default behaviour will fetch any http(s) files normally, and will
-        also attempt to resolve staticfiles internally.
+        also attempt to resolve relative URLs internally.
 
-        See :func:`django_renderpdf.helpers.url_fetcher` for further details.
-        """
+        Generally, you should not need to override this method unless you want to use
+        custom URL schemes. For finer details on its inner workings, see
+        `weasyprint's documentation on url_fetcher`_.
+
+        .. _weasyprint's documentation on url_fetcher: https://weasyprint.readthedocs.io/en/stable/tutorial.html#url-fetchers
+        """  # noqa: E501
         return helpers.django_url_fetcher(url)
 
     def get_download_name(self) -> str:
         """Return the default filename when this file is downloaded.
 
-        Users will only be prompted to download the PDF file if ``prompt_download`` is
-        ``True``, otherwise, browsers will generally render it.
+        .. deprecated:: 3.0
+
+            Use :func:`~download_name` as a property instead.
         """
         if self.download_name is None:
             raise ImproperlyConfigured(
-                "PDFView with 'prompt_download=True' requires either a "
-                "definition of 'download_name' or an impementation of "
-                "'get_download_name'."
+                "PDFView with 'prompt_download=True' requires a definition "
+                "of 'download_name'."
             )
         else:
             return self.download_name
 
-    def get_template_name(self) -> str:
-        """Return the name of the template which will be rendered into a PDF."""
+    def get_template_names(self) -> List[str]:
+        """Return a list of template names to be used for the request.
+
+        Must return a list. By default, just returns ``[self.template_name]``.
+
+        .. versionadded:: 3.0
+        """
         if self.template_name is None:
             raise ImproperlyConfigured(
                 "PDFView requires either a definition of 'template_name' or "
-                "an impementation of 'get_template_name'."
+                "an implementation of 'get_template_names()'."
+            )
+        else:
+            return [self.get_template_name()]
+
+    def get_template_name(self) -> str:
+        """Return the name of the template which will be rendered into a PDF.
+
+        .. deprecated:: 3.0
+
+            Use :func:`~get_template_names` instead.
+        """
+        if self.template_name is None:
+            raise ImproperlyConfigured(
+                "PDFView requires either a definition of 'template_name' or "
+                "an impementation of 'get_template_names()'."
             )
         else:
             return self.template_name
@@ -102,7 +142,7 @@ class PDFView(View, ContextMixin):
         HTML.
         """
         if self.allow_force_html and self.request.GET.get("html", False):
-            html = get_template(template).render(context)
+            html = select_template(template).render(context)
             return HttpResponse(html)
         else:
             response = HttpResponse(content_type="application/pdf")
@@ -123,6 +163,6 @@ class PDFView(View, ContextMixin):
         context = self.get_context_data(*args, **kwargs)
         return self.render(
             request=request,
-            template=self.get_template_name(),
+            template=self.get_template_names(),
             context=context,
         )

@@ -28,7 +28,7 @@ setup(
     },
     setup_requires=["setuptools_scm"],
     classifiers=[
-        "Development Status :: 5 - Production/Stable",
+        "Development Status :: 6 - Mature",
         "Environment :: Web Environment",
         "Framework :: Django",
         "Framework :: Django :: 2.2",

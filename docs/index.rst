@@ -72,6 +72,9 @@ redirected to the usual login screen, and then back to this view after login.
 API
 ---
 
+PDFView
+~~~~~~~
+
 .. autoclass:: django_renderpdf.views.PDFView
 
 
