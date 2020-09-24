@@ -8,7 +8,8 @@ jobs:
     strategy:
       matrix:
         python: [ '3.6', '3.7', '3.8' ]
-    name: python${{ matrix.python }}
+        django: [ '22', '30', '31' ]
+    name: python${{ matrix.python }}, django-${{ matrix.django }}
     steps:
       - uses: actions/checkout@master
       - uses: actions/setup-python@v1
@@ -20,7 +21,7 @@ jobs:
       - name: Run tests
         run: tox
         env:
-          TOXENV: py
+          TOXENV: django${{ matrix.django }}
       - name: Report coverage
         run: codecov
         env:
