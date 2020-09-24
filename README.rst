@@ -36,21 +36,6 @@ all the known tools and skills when generating a PDF file in a Django app:
 * Simply subclass a ``PDFView`` class which has an interface very similar to
   Django's own built-in ``View`` classes.
 
-Background
-----------
-
-django-renderpdf actually started out as code on multiple of my own projects
-(including some public ones).
-
-After some time, it became clear that I'd been copy-pasting PDF-related bits
-across different projects, and since co-workers expressed interest in this
-design (using the Django templating system to generate PDFs), it finally made
-sense to move this into a separate library.
-
-Because of this, documentation is still a work in progress (the code far
-outdates this API being public), and while unit tests are lacking, this code
-has had ample field testing.
-
 Documentation
 -------------
 

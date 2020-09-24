@@ -92,6 +92,17 @@ Donations
 Donations are welcome. See `here <https://github.com/sponsors/WhyNotHugo>`_ for further
 details.
 
+Background
+----------
+
+django-renderpdf actually started out as code on multiple of my own projects
+(including some public ones).
+
+After some time, it became clear that I'd been copy-pasting PDF-related bits
+across different projects, and since co-workers expressed interest in this
+design (using the Django templating system to generate PDFs), it finally made
+sense to move this into a separate library.
+
 Licence
 -------
 
