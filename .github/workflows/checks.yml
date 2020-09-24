@@ -1,0 +1,16 @@
+name: Checks
+
+on: [push]
+
+jobs:
+  styles:
+    runs-on: ubuntu-18.04
+    name: lint
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+          architecture: x64
+      - run: pip install tox
+      - run: tox -e flake8

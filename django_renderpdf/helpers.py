@@ -1,9 +1,11 @@
 import mimetypes
+from typing import IO
+from typing import List
 
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.http.request import HttpRequest
-from django.template.loader import get_template
+from django.template.loader import select_template
 from django.urls import resolve
 from django.urls.exceptions import Resolver404
 from weasyprint import default_url_fetcher
@@ -88,8 +90,8 @@ def django_url_fetcher(url: str):
 
 
 def render_pdf(
-    template,
-    file_,
+    template: List[str],
+    file_: IO,
     url_fetcher=django_url_fetcher,
     context=None,
 ):
@@ -105,7 +107,7 @@ def render_pdf(
     """
     context = context or {}
 
-    html = get_template(template).render(context)
+    html = select_template(template).render(context)
     HTML(string=html, base_url="not-used://", url_fetcher=url_fetcher,).write_pdf(
         target=file_,
     )

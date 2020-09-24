@@ -72,8 +72,12 @@ redirected to the usual login screen, and then back to this view after login.
 API
 ---
 
+PDFView
+~~~~~~~
+
 .. autoclass:: django_renderpdf.views.PDFView
 
+.. include:: ../CHANGELOG.rst
 
 Help
 ----
@@ -86,12 +90,6 @@ If you think you found a bug, or need help with something specific:
 
 Issues and source code are all in `GitHub <https://www.github.com/WhyNotHugo/django-renderpdf>`_.
 
-Donations
----------
-
-Donations are welcome. See `here <https://github.com/sponsors/WhyNotHugo>`_ for further
-details.
-
 Background
 ----------
 
@@ -102,6 +100,12 @@ After some time, it became clear that I'd been copy-pasting PDF-related bits
 across different projects, and since co-workers expressed interest in this
 design (using the Django templating system to generate PDFs), it finally made
 sense to move this into a separate library.
+
+Donations
+---------
+
+Donations are welcome. See `here <https://github.com/sponsors/WhyNotHugo>`_ for further
+details.
 
 Licence
 -------

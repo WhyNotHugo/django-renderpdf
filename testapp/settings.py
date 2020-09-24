@@ -56,7 +56,8 @@ WSGI_APPLICATION = "testapp.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR.joinpath("db.sqlite3"),
+        # Casting to string required for Django < 3.1
+        "NAME": str(BASE_DIR.joinpath("db.sqlite3")),
     }
 }
 
