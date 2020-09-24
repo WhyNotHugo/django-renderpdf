@@ -11,15 +11,19 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+
+import django_renderpdf
+
 # -- Project information -----------------------------------------------------
 
 project = "django_renderpdf"
 copyright = "2020, Hugo Osvaldo Barrera"
 author = "Hugo Osvaldo Barrera"
 
+# The short X.Y version.
+version = django_renderpdf.__version__
 # The full version, including alpha/beta/rc tags
-release = "2.1.0"
-
+release = django_renderpdf.__version__
 
 # -- General configuration ---------------------------------------------------
 
