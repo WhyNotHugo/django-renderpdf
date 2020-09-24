@@ -6,7 +6,7 @@ setup(
     description="A django app to render django templates as PDF files.",
     author="Hugo Osvaldo Barrera",
     author_email="hugo@barrera.io",
-    url="https://github.com/WhyNotHugo/django-renderpdf",
+    url="https://django-renderpdf.readthedocs.io/",
     project_urls={
         "GitHub": "https://github.com/WhyNotHugo/django-renderpdf",
         "Funding": "https://github.com/sponsors/WhyNotHugo",
