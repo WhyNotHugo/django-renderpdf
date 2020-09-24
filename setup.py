@@ -14,7 +14,13 @@ setup(
     license="ISC",
     packages=["django_renderpdf"],
     include_package_data=True,
-    install_requires=["django>=2.2", "weasyprint"],
+    install_requires=[
+        "django>=2.2",
+        "weasyprint",
+    ],
+    extras_require={
+        "docs": ["sphinx"],
+    },
     long_description=open("README.rst").read(),
     use_scm_version={
         "version_scheme": "post-release",

@@ -97,6 +97,14 @@ And in ``urls.py``:
 Changelog
 ---------
 
+v2.2.0
+~~~~~~
+
+- ``django_renderpdf.views.PDFView.url_fetcher`` is no longer a static method. If you
+  were overriding this method, make sure you remove the ``@staticmethod`` decorator
+  from your implementation.
+- Improved documentation at RTD.
+
 v2.1.0
 ~~~~~~
 
