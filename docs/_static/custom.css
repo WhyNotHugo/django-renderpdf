@@ -1,0 +1,13 @@
+div.documentwrapper {
+  max-width: 800px;
+  margin: auto;
+  float: none;
+}
+
+div.bodywrapper {
+  margin: 0;
+}
+
+div.sphinxsidebar {
+  display: none;
+}
