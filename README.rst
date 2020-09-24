@@ -104,6 +104,7 @@ v2.1.0
   CSS, image files, and other resources will be resolved using Django's internal URL
   routing. This includes scenarios like serving static or media files via Django, or
   serving thing like custom css via custom Django views.
+- Drop support for Python 3.5.
 
 v2.0.1
 ~~~~~~
