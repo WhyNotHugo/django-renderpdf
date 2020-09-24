@@ -53,7 +53,7 @@ class PDFView(View, ContextMixin):
         This is a ``@staticmethod``, so if you override it, make sure it's with
         a static method.
         """
-        return helpers.staticfiles_url_fetcher(url)
+        return helpers.django_url_fetcher(url)
 
     def get_download_name(self):
         """

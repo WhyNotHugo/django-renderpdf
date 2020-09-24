@@ -2,17 +2,25 @@ import mimetypes
 
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.http.request import HttpRequest
 from django.template.loader import get_template
+from django.urls import resolve
+from django.urls.exceptions import Resolver404
 from weasyprint import default_url_fetcher
 from weasyprint import HTML
 
 
-def staticfiles_url_fetcher(url: str):
-    """
-    Returns the file matching URL.
+class InvalidRelativeUrl(ValueError):
+    """Raised when a relative URL cannot be handled by Django."""
 
-    This method will handle any URL resources that rendering HTML requires
-    (e.g.: images used by ``img`` tags, stylesheets, etc.).
+
+def django_url_fetcher(url: str):
+    """Returns the file for a given URL.
+
+    If the URL appear to be a static file, we will attempt to load it internally.
+    Otherwise, it will resolve normally as an external URL.
+
+    Relative URLs are only supported
 
     The default behaviour will fetch any http(s) files normally, and will
     also attempt to resolve staticfiles internally (this should mostly
@@ -23,33 +31,67 @@ def staticfiles_url_fetcher(url: str):
     resources data as a string and ``mime_type``, which is the identified
     mime type for the resource.
     """
-    if url.startswith(staticfiles_storage.base_url):
-        filename = url.replace(staticfiles_storage.base_url, "", 1)
+    # If the URL looks like a staticfile, try to load it as such.
+    # Reading it from the storage avoids a network call in many cases (unless the
+    # storage is remote, in which case this improves nothing:
+    try:
+        if url.startswith(staticfiles_storage.base_url):
+            filename = url.replace(staticfiles_storage.base_url, "", 1)
+            data = None
 
-        path = finders.find(filename)
-        if path:
-            # This should match most cases. Manifest static files with relative
-            # URLs will only be picked up in DEBUG mode here.
-            with open(path, "rb") as f:
-                data = f.read()
-        else:
-            # This should just match things like Manifest static files with
-            # relative URLs. While this code path will expect `collectstatic`
-            # to have run, it should only be reached on if DEBUG = False.
+            path = finders.find(filename)
+            if path:
+                # Read static files from source (e.g.: the file that's bundled with the
+                # Django app that provides it.
+                # This also picks up uncollected staticfiles (useful when developing /
+                # in DEBUG mode).
+                with open(path, "rb") as f:
+                    data = f.read()
+            else:
+                # File was not found by a finder. This commonly happens when running in
+                # DEBUG=True with a storage that uses Manifests or alike, since the
+                # filename won't match with the source file.
+                # In these cases, use the _storage_ to find the file instead:
+                with staticfiles_storage.open(filename) as f:
+                    data = f.read()
 
-            with staticfiles_storage.open(filename) as f:
-                data = f.read()
+            return {
+                "mime_type": mimetypes.guess_type(url)[0],
+                "string": data,
+            }
+    except (ValueError, FileNotFoundError):
+        # Looks like this wasn't a staticfile (or maybe it was a missing one?)
+        # Let it resolve as a normal URL.
+        pass
 
-        return {
-            "string": data,
-            "mime_type": mimetypes.guess_type(url)[0],
-        }
-    else:
-        return default_url_fetcher(url)
+    try:
+        # If the URL is a relative URL, use Django's resolver to figure out how Django
+        # would serve this.
+        #
+        # This should cover all those funky scenarios like:
+        # - Custom views that serve dynamically generated files.
+        # - Media files (if serving them via Django, which is not recommended).
+        if url.startswith("/"):
+            view, args, kwargs = resolve(url)
+            kwargs["request"] = HttpRequest
+            kwargs["request"].method = "GET"
+            response = view(*args, **kwargs)
+
+            return {
+                "mime_type": mimetypes.guess_type(url)[0],
+                "string": response.content,
+            }
+    except Resolver404 as e:
+        raise InvalidRelativeUrl(f"No view matched `{url}`.") from e
+
+    return default_url_fetcher(url)
 
 
 def render_pdf(
-    template, file_, url_fetcher=staticfiles_url_fetcher, context=None,
+    template,
+    file_,
+    url_fetcher=django_url_fetcher,
+    context=None,
 ):
     """
     Writes the PDF data into ``file_``. Note that ``file_`` can actually be a
