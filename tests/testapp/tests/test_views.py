@@ -96,7 +96,7 @@ class StaticFileResolutionTestCase(TestCase):
         request = factory.get('/some_view')
 
         with patch(
-            'django_renderpdf.helpers.staticfiles_url_fetcher',
+            'django_renderpdf.helpers.django_url_fetcher',
             return_value={
                 'string': 'html { margin: 0; }',
                 'mime_type': 'text/css',

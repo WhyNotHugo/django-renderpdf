@@ -1,61 +1,63 @@
-import os
-from unittest.mock import call, MagicMock, patch
+from unittest.mock import patch
 
-from django.conf import settings
-from django.test import override_settings, TestCase
+import pytest
 
 from django_renderpdf import helpers
+from django_renderpdf.helpers import InvalidRelativeUrl
 
 
-class StaticFilesUrlFetcherTestCase(TestCase):
-    def test_relative_path(self):
-        file_ = helpers.staticfiles_url_fetcher('/static/styles.css')
-        self.assertEqual(
-            file_,
-            {
-                'string': b'html { margin: 0; }\n',
-                'mime_type': 'text/css',
-            },
-        )
+def test_static_relative_fetched():
+    fetched = helpers.django_url_fetcher("/static/styles.css")
+    assert fetched == {
+        "string": b"html { margin: 0; }\n",
+        "mime_type": "text/css",
+    }
 
-    def test_relative_non_found_path(self):
-        # Manifest files won't be found by a finder, but will be present in the
-        # staticfiles storage.
-        # This tests case attempts to emulate that.
-        with patch(
-            'django.contrib.staticfiles.finders.find',
-            return_value=None,
-            spec=True,
-        ), override_settings(
-            STATIC_ROOT=os.path.join(
-                settings.BASE_DIR,
-                'testapp/static/',
-            )
-        ):
-            file_ = helpers.staticfiles_url_fetcher('/static/styles.css')
-            self.assertEqual(
-                file_,
-                {
-                    'string': b'html { margin: 0; }\n',
-                    'mime_type': 'text/css',
-                },
-            )
 
-    def test_absolute_path(self):
-        mocked_file = MagicMock()
+def test_static_relative_not_found():
+    with pytest.raises(InvalidRelativeUrl):
+        helpers.django_url_fetcher("/static/non-existent.css")
 
-        with patch(
-            'django_renderpdf.helpers.default_url_fetcher',
-            return_value=mocked_file,
-            spec=True,
-        ) as default_fetcher:
-            file_ = helpers.staticfiles_url_fetcher(
-                'https://example.com/style.css',
-            )
 
-        self.assertEqual(default_fetcher.call_count, 1)
-        self.assertEqual(
-            default_fetcher.call_args,
-            call('https://example.com/style.css'),
-        )
-        self.assertEqual(file_, mocked_file)
+def test_relative_staticfile_fetched():
+    # Manifest files normally won't be found by a finder, but will be present in the
+    # staticfiles storage.
+    #
+    # Patch `find()` to simulate exactly that:
+    with patch(
+        "django.contrib.staticfiles.finders.find",
+        return_value=None,
+        spec=True,
+    ):
+        fetched = helpers.django_url_fetcher("/static/styles.css")
+        assert fetched == {
+            "string": b"html { margin: 0; }\n",
+            "mime_type": "text/css",
+        }
+
+
+def test_relative_url_resolves():
+    fetched = helpers.django_url_fetcher("/view.css")
+    fetched == {
+        "string": b"* { background-color: red; }",
+        "mime_type": "text/css",
+    }
+
+
+def test_bogus_relative_url_raises():
+    with pytest.raises(InvalidRelativeUrl):
+        helpers.django_url_fetcher("/non-existant.css")
+
+
+def test_absolute_path_resolves():
+    mocked_file = {"mime_type": "text/css", "string": "* { font-size: 100px; }"}
+
+    with patch(
+        "django_renderpdf.helpers.default_url_fetcher",
+        return_value=mocked_file,
+        spec=True,
+    ) as default_fetcher:
+        fetched = helpers.django_url_fetcher("https://example.com/style.css")
+
+    assert default_fetcher.call_count == 1
+    assert fetched == {"mime_type": "text/css", "string": "* { font-size: 100px; }"}
