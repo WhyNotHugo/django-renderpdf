@@ -73,3 +73,26 @@ API
 ---
 
 .. autoclass:: django_renderpdf.views.PDFView
+
+
+Help
+----
+
+If you think you found a bug, or need help with something specific:
+
+- Please check existing issues for similar topics.
+- If there's nothing relevant, please open a new issue describing your problem, and
+  what you've tried so far.
+
+Issues and source code are all in `GitHub <https://www.github.com/WhyNotHugo/django-renderpdf>`_.
+
+Donations
+---------
+
+Donations are welcome. See `here <https://github.com/sponsors/WhyNotHugo>`_ for further
+details.
+
+Licence
+-------
+
+django-renderpdf is licensed under the ISC licence.
