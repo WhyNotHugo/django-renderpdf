@@ -6,6 +6,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.test import RequestFactory
 from django.test import TestCase
 
+from django_renderpdf.views import PDFView
 from testapp import views
 
 factory = RequestFactory()
@@ -130,3 +131,17 @@ def test_view_with_missing_download_name(rf):
         match=r"requires.*download_name",
     ):
         views.PromptWithMissingDownloadNameView.as_view()(request)
+
+
+def test_view_with_multiple_template_names(rf):
+    class TestView(PDFView):
+        def get_template_names(self):
+            return [
+                "test_template.html",
+                "test_template.html",
+            ]
+
+    request = factory.get("/test")
+    response = TestView.as_view()(request)
+
+    assert response.status_code == 200
