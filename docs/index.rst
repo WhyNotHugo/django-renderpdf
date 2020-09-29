@@ -11,6 +11,14 @@ django-renderpdf
 Our intent is to properly integrate into Django, and have a very simple, yet flexible
 API. We follow common Django patterns, so rendering and exposing PDFs is simple.
 
+Index
+-----
+
+.. toctree::
+   :maxdepth: 2
+
+   index
+
 Getting started
 ---------------
 
