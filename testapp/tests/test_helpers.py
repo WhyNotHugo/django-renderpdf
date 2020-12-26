@@ -38,7 +38,7 @@ def test_relative_staticfile_fetched():
 
 def test_relative_url_resolves():
     fetched = helpers.django_url_fetcher("/view.css")
-    fetched == {
+    assert fetched == {
         "string": b"* { background-color: red; }",
         "mime_type": "text/css",
     }
