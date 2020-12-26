@@ -85,6 +85,11 @@ PDFView
 
 .. autoclass:: django_renderpdf.views.PDFView
 
+Helpers
+~~~~~~~
+
+.. autofunction:: django_renderpdf.helpers.render_pdf
+
 .. include:: ../CHANGELOG.rst
 
 Help
