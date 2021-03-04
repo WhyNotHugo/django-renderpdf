@@ -1,12 +1,17 @@
 Changelog
 ---------
 
+v3.0.1
+~~~~~~
+- :func:`~.render_pdf` may take a list of templates or a single template. This
+  restores compatibility with pre-v3.0.0 interface.
+
 v3.0.0
 ~~~~~~
 
 - ``get_template_name`` has been deprecated in favour of ``get_template_names``. This
   does not affect usages when ``template_name`` is defined.
-- ``get_download_name``` has been deprecated. Override ``download_name`` as a property
+- ``get_download_name`` has been deprecated. Override ``download_name`` as a property
   instead.
 
 v2.2.0

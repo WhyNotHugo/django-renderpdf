@@ -2,6 +2,7 @@ import mimetypes
 from typing import IO
 from typing import List
 from typing import Optional
+from typing import Union
 
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
@@ -91,7 +92,7 @@ def django_url_fetcher(url: str):
 
 
 def render_pdf(
-    template: List[str],
+    template: Union[List[str], str],
     file_: IO,
     url_fetcher=django_url_fetcher,
     context: Optional[dict] = None,
@@ -103,8 +104,9 @@ def render_pdf(
     This function may be used as a helper that can be used to save a PDF file
     to a file (or anything else outside of a request/response cycle).
 
-    :param template: A list of templates. These will be searching in order, and the
-        first one found will be used.
+    :param template: A list of templates, or a single template. If a list of
+        templates is passed, these will be searched in order, and the first
+        one found will be used.
     :param file: A file-like object (or a Response) where to output
         the rendered PDF.
     :param url_fetcher: See `weasyprint's documentation on url_fetcher`_.
@@ -113,6 +115,9 @@ def render_pdf(
     .. _weasyprint's documentation on url_fetcher: https://weasyprint.readthedocs.io/en/stable/tutorial.html#url-fetchers
     """  # noqa: E501
     context = context or {}
+
+    if isinstance(template, str):
+        template = [template]
 
     html = select_template(template).render(context)
     HTML(string=html, base_url="not-used://", url_fetcher=url_fetcher,).write_pdf(
