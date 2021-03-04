@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v3.0.1
+~~~~~~
+- :func:`~.render_pdf` may take a list of templates or a single template. This
+  restores compatibility with pre-v3.0.0 interface.
+
 v3.0.0
 ~~~~~~
 

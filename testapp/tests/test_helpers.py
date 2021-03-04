@@ -1,6 +1,8 @@
+import io
 from unittest.mock import patch
 
 import pytest
+from django.template.exceptions import TemplateDoesNotExist
 
 from django_renderpdf import helpers
 from django_renderpdf.helpers import InvalidRelativeUrl
@@ -61,3 +63,37 @@ def test_absolute_path_resolves():
 
     assert default_fetcher.call_count == 1
     assert fetched == {"mime_type": "text/css", "string": "* { font-size: 100px; }"}
+
+
+def test_render_pdf_single_template():
+    file_ = io.BytesIO()
+    helpers.render_pdf("test_template.html", file_)
+
+    # Pdf for this template should be about 8kB
+    assert len(file_.getvalue()) > 3000
+
+
+def test_render_pdf_several_templates():
+    file_ = io.BytesIO()
+    helpers.render_pdf(
+        ["test_template.html", "test_template_with_staticfile.html"],
+        file_,
+    )
+
+    # Pdf for this template should be about 8kB
+    assert len(file_.getvalue()) > 3000
+
+
+def test_render_pdf_with_some_non_existant():
+    file_ = io.BytesIO()
+    helpers.render_pdf(["idontexist.html", "test_template.html"], file_)
+
+    # Pdf for this template should be about 8kB
+    assert len(file_.getvalue()) > 3000
+
+
+def test_render_pdf_with_non_existant():
+    file_ = io.BytesIO()
+
+    with pytest.raises(TemplateDoesNotExist):
+        helpers.render_pdf(["idontexist.html"], file_)
