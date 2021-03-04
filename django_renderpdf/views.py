@@ -111,13 +111,7 @@ class PDFView(View, ContextMixin):
 
         .. versionadded:: 3.0
         """
-        if self.template_name is None:
-            raise ImproperlyConfigured(
-                "PDFView requires either a definition of 'template_name' or "
-                "an implementation of 'get_template_names()'."
-            )
-        else:
-            return [self.get_template_name()]
+        return [self.get_template_name()]
 
     def get_template_name(self) -> str:
         """Return the name of the template which will be rendered into a PDF.
