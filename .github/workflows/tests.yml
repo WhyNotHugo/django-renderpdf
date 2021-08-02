@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   tests:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         python: [ '3.6', '3.7', '3.8' ]
@@ -16,13 +16,10 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           architecture: x64
-      - name: Install test dependencies
-        run: pip install tox codecov
-      - name: Run tests
-        run: tox
+      - run: pip install tox codecov
+      - run: tox
         env:
           TOXENV: django${{ matrix.django }}
-      - name: Report coverage
-        run: codecov
+      - run: codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
