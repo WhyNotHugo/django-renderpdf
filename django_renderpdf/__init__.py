@@ -1,3 +1,3 @@
-from . import version
+from . import version  # type: ignore
 
 __version__ = version.version
