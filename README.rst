@@ -1,9 +1,9 @@
 django-renderpdf
 ================
 
-.. image:: https://travis-ci.org/WhyNotHugo/django-renderpdf.svg?branch=main
-  :target: https://travis-ci.org/WhyNotHugo/django-renderpdf
-  :alt: Travis CI build status
+.. image:: https://github.com/WhyNotHugo/django-renderpdf/workflows/Tests/badge.svg
+  :target: https://github.com/WhyNotHugo/django-renderpdf/actions/workflows/tests.yml
+  :alt: Actions Status
 
 .. image:: https://codecov.io/gh/WhyNotHugo/django-renderpdf/branch/main/graph/badge.svg
   :target: https://codecov.io/gh/WhyNotHugo/django-renderpdf
