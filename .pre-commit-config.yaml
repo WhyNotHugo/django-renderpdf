@@ -23,3 +23,8 @@ repos:
         additional_dependencies:
           - flake8-comprehensions
           - flake8-bugbear
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.23.3
+    hooks:
+      - id: pyupgrade
+        args: [--py36-plus]
