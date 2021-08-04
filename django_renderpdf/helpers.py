@@ -10,8 +10,8 @@ from django.http.request import HttpRequest
 from django.template.loader import select_template
 from django.urls import resolve
 from django.urls.exceptions import Resolver404
-from weasyprint import default_url_fetcher
 from weasyprint import HTML
+from weasyprint import default_url_fetcher
 
 
 class InvalidRelativeUrl(ValueError):
