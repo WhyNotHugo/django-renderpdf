@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v4.0.0
+~~~~~~
+- Dropped support for Python 3.6.
+- Dropped support for Python 3.7.
+
 v3.0.1
 ~~~~~~
 - :func:`~.render_pdf` may take a list of templates or a single template. This
