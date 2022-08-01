@@ -9,7 +9,6 @@ v4.0.0
 - Supported Python versions are now 3.8, 3.9 and 3.10.
 - Supported Django versions are now 3.2 and 4.0.
 
-
 v3.0.1
 ~~~~~~
 - :func:`~.render_pdf` may take a list of templates or a single template. This
