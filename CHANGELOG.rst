@@ -3,8 +3,11 @@ Changelog
 
 v4.0.0
 ~~~~~~
+
 - Dropped support for Python 3.6.
 - Dropped support for Python 3.7.
+- Added support for Python 3.10.
+
 
 v3.0.1
 ~~~~~~
