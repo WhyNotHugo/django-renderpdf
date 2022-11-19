@@ -19,14 +19,28 @@ Index
 
    index
 
-Getting started
----------------
+Installation
+------------
 
 You'll first need to install the python package::
 
    pip install django-renderpdf
 
 You *don't* need to add it to ``INSTALLED_APPS``.
+
+This package depends on ``weasyprint``, which will be installed as a dependency
+automatically. However, ``weasyprint`` itself has a few non-Python
+dependencies. Make sure the following works before proceeding::
+
+    python -c "import weasyprint"
+
+If the above prints an error, please follow `weasyprint's installation
+documentation`_.
+
+.. _`weasyprint's installation documentation`: https://doc.courtbouillon.org/weasyprint/stable/first_steps.html#installation
+
+Usage
+-----
 
 As a usage example, lets assume we have to print some shipping labels to dispatch a
 product. We'll need to generate a PDF file for this to print.
