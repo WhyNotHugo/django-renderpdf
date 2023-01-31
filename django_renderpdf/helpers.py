@@ -14,7 +14,8 @@ from weasyprint import HTML
 from weasyprint import default_url_fetcher
 
 
-class InvalidRelativeUrl(ValueError):
+# Renaming this would required chaning public API and a major release:
+class InvalidRelativeUrl(ValueError):  # noqa: N818
     """Raised when a relative URL cannot be handled by Django."""
 
 
