@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 from setuptools import setup
 
+with open("README.rst") as f:
+    readme = f.read()
+
 setup(
     name="django-renderpdf",
     description="A django app to render django templates as PDF files.",
@@ -21,7 +24,7 @@ setup(
     extras_require={
         "docs": ["sphinx"],
     },
-    long_description=open("README.rst").read(),
+    long_description=readme,
     use_scm_version={
         "version_scheme": "post-release",
         "write_to": "django_renderpdf/version.py",
