@@ -17,28 +17,30 @@ class PromptDownloadTestCase(TestCase):
         request = factory.get("/some_view")
 
         response = views.PromptDownloadView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(
-            b"Content-Type: application/pdf", response.serialize_headers().splitlines()
+        assert response.status_code == 200
+        assert (
+            b"Content-Type: application/pdf"
+            in response.serialize_headers().splitlines()
         )
-        self.assertIn(
-            b'Content-Disposition: attachment; filename="myfile.pdf"',
-            response.serialize_headers().splitlines(),
+        assert (
+            b'Content-Disposition: attachment; filename="myfile.pdf"'
+            in response.serialize_headers().splitlines()
         )
         # Assert that response looks like a PDF
-        self.assertTrue(response.content.startswith(b"%PDF-1."))
+        assert response.content.startswith(b"%PDF-1.") is True
 
     def test_dont_prompt_download(self):
         request = factory.get("/some_view")
 
         response = views.NoPromptDownloadView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(
-            b"Content-Type: application/pdf", response.serialize_headers().splitlines()
+        assert response.status_code == 200
+        assert (
+            b"Content-Type: application/pdf"
+            in response.serialize_headers().splitlines()
         )
-        self.assertNotIn(b"Content-Disposition:", response.serialize_headers())
+        assert b"Content-Disposition:" not in response.serialize_headers()
         # Assert that response looks like a PDF
-        self.assertTrue(response.content.startswith(b"%PDF-1."))
+        assert response.content.startswith(b"%PDF-1.") is True
 
 
 class ForceHTMLTestCase(TestCase):
@@ -46,45 +48,48 @@ class ForceHTMLTestCase(TestCase):
         request = factory.get("/some_view?html=true")
 
         response = views.AllowForceHtmlView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(b"Hi!\n", response.content)
-        self.assertIn(
-            b"Content-Type: text/html; charset=utf-8",
-            response.serialize_headers().splitlines(),
+        assert response.status_code == 200
+        assert response.content == b"Hi!\n"
+        assert (
+            b"Content-Type: text/html; charset=utf-8"
+            in response.serialize_headers().splitlines()
         )
 
     def test_no_force_html_allowed(self):
         request = factory.get("/some_view")
 
         response = views.AllowForceHtmlView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(
-            b"Content-Type: application/pdf", response.serialize_headers().splitlines()
+        assert response.status_code == 200
+        assert (
+            b"Content-Type: application/pdf"
+            in response.serialize_headers().splitlines()
         )
         # Assert that response looks like a PDF
-        self.assertTrue(response.content.startswith(b"%PDF-1."))
+        assert response.content.startswith(b"%PDF-1.") is True
 
     def test_force_html_disallowed(self):
         request = factory.get("/some_view?html=true")
 
         response = views.DisallowForceHtmlView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(
-            b"Content-Type: application/pdf", response.serialize_headers().splitlines()
+        assert response.status_code == 200
+        assert (
+            b"Content-Type: application/pdf"
+            in response.serialize_headers().splitlines()
         )
         # Assert that response looks like a PDF
-        self.assertTrue(response.content.startswith(b"%PDF-1."))
+        assert response.content.startswith(b"%PDF-1.") is True
 
     def test_no_force_html_disallowed(self):
         request = factory.get("/some_view")
 
         response = views.DisallowForceHtmlView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(
-            b"Content-Type: application/pdf", response.serialize_headers().splitlines()
+        assert response.status_code == 200
+        assert (
+            b"Content-Type: application/pdf"
+            in response.serialize_headers().splitlines()
         )
         # Assert that response looks like a PDF
-        self.assertTrue(response.content.startswith(b"%PDF-1."))
+        assert response.content.startswith(b"%PDF-1.") is True
 
 
 class CustomUrlFetcherTestCase(TestCase):
@@ -105,12 +110,9 @@ class StaticFileResolutionTestCase(TestCase):
         ) as fetcher:
             response = views.TemplateWithStaticFileView.as_view()(request)
 
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(fetcher.call_count, 1)
-        self.assertEqual(
-            fetcher.call_args,
-            call("/static/path/not/relevant.css"),
-        )
+        assert response.status_code == 200
+        assert fetcher.call_count == 1
+        assert fetcher.call_args == call("/static/path/not/relevant.css")
 
 
 def test_view_with_no_template(rf):
