@@ -121,6 +121,10 @@ def render_pdf(
         template = [template]
 
     html = select_template(template).render(context)
-    HTML(string=html, base_url="not-used://", url_fetcher=url_fetcher,).write_pdf(
+    HTML(
+        string=html,
+        base_url="not-used://",
+        url_fetcher=url_fetcher,
+    ).write_pdf(
         target=file_,
     )
