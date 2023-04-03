@@ -4,10 +4,9 @@ Changelog
 v4.0.0
 ~~~~~~
 
-- Dropped support for Python 3.6.
-- Dropped support for Python 3.7.
-- Supported Python versions are now 3.8, 3.9 and 3.10.
-- Supported Django versions are now 3.2 and 4.0.
+- Dropped support for Python 3.6 and Python 3.7.
+- Supported Python versions are now 3.8 to 3.11.
+- Supported Django versions are now 3.2 to 4.2.
 
 v3.0.1
 ~~~~~~
