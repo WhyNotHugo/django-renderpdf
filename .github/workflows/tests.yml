@@ -16,10 +16,7 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           architecture: x64
-      - run: pip install tox codecov
+      - run: pip install tox
       - run: tox
         env:
           TOXENV: django${{ matrix.django }}
-      - run: codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

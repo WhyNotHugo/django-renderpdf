@@ -5,10 +5,6 @@ django-renderpdf
   :target: https://github.com/WhyNotHugo/django-renderpdf/actions/workflows/tests.yml
   :alt: Actions Status
 
-.. image:: https://codecov.io/gh/WhyNotHugo/django-renderpdf/branch/main/graph/badge.svg
-  :target: https://codecov.io/gh/WhyNotHugo/django-renderpdf
-  :alt: Codecov coverage report
-
 .. image:: https://img.shields.io/pypi/v/django-renderpdf.svg
   :target: https://pypi.python.org/pypi/django-renderpdf
   :alt: Version on PyPI
