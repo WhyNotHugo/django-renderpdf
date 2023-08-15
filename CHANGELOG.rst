@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v4.0.1
+~~~~~~
+
+- Fixed documentation not rendering on readthedocs.
+
 v4.0.0
 ~~~~~~
 
