@@ -101,8 +101,7 @@ class PDFView(View, ContextMixin):
                 "PDFView with 'prompt_download=True' requires a definition "
                 "of 'download_name'."
             )
-        else:
-            return self.download_name
+        return self.download_name
 
     def get_template_names(self) -> List[str]:
         """Return a list of template names to be used for the request.
@@ -125,8 +124,7 @@ class PDFView(View, ContextMixin):
                 "PDFView requires either a definition of 'template_name' or "
                 "an impementation of 'get_template_names()'."
             )
-        else:
-            return self.template_name
+        return self.template_name
 
     def render(self, request, template, context) -> HttpResponse:
         """Returns a response.
@@ -138,19 +136,18 @@ class PDFView(View, ContextMixin):
         if self.allow_force_html and self.request.GET.get("html", False):
             html = select_template(template).render(context)
             return HttpResponse(html)
-        else:
-            response = HttpResponse(content_type="application/pdf")
-            if self.prompt_download:
-                response["Content-Disposition"] = 'attachment; filename="{}"'.format(
-                    self.get_download_name()
-                )
-            helpers.render_pdf(
-                template=template,
-                file_=response,
-                url_fetcher=self.url_fetcher,
-                context=context,
+        response = HttpResponse(content_type="application/pdf")
+        if self.prompt_download:
+            response["Content-Disposition"] = 'attachment; filename="{}"'.format(
+                self.get_download_name()
             )
-            return response
+        helpers.render_pdf(
+            template=template,
+            file_=response,
+            url_fetcher=self.url_fetcher,
+            context=context,
+        )
+        return response
 
     # Move all the above into BasePdfView, which can be subclassed for posting
     def get(self, request, *args, **kwargs) -> HttpResponse:
