@@ -1,10 +1,11 @@
 Changelog
 ---------
 
-v4.0.1
+v4.1.0
 ~~~~~~
 
 - Fixed documentation not rendering on readthedocs.
+- Add support for Python 3.11.
 
 v4.0.0
 ~~~~~~
