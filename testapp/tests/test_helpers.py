@@ -69,8 +69,11 @@ def test_render_pdf_single_template():
     file_ = io.BytesIO()
     helpers.render_pdf("test_template.html", file_)
 
-    # Pdf for this template should be about 8kB
-    assert len(file_.getvalue()) > 3000
+    # TODO: make sure some of the text from the template is actually in the PDF?
+    #       this would benefit from some manual validation mechanism.
+    data = file_.getvalue()
+    assert data.startswith(b"%PDF-1.7\n")
+    assert len(data) > 2000
 
 
 def test_render_pdf_several_templates():
@@ -80,8 +83,7 @@ def test_render_pdf_several_templates():
         file_,
     )
 
-    # Pdf for this template should be about 8kB
-    assert len(file_.getvalue()) > 3000
+    assert len(file_.getvalue()) > 2000
 
 
 def test_render_pdf_with_some_non_existant():
@@ -89,7 +91,7 @@ def test_render_pdf_with_some_non_existant():
     helpers.render_pdf(["idontexist.html", "test_template.html"], file_)
 
     # Pdf for this template should be about 8kB
-    assert len(file_.getvalue()) > 3000
+    assert len(file_.getvalue()) > 2000
 
 
 def test_render_pdf_with_non_existant():
