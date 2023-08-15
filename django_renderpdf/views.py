@@ -86,7 +86,7 @@ class PDFView(View, ContextMixin):
         `weasyprint's documentation on url_fetcher`_.
 
         .. _weasyprint's documentation on url_fetcher: https://weasyprint.readthedocs.io/en/stable/tutorial.html#url-fetchers
-        """  # noqa: E501
+        """
         return helpers.django_url_fetcher(url)
 
     def get_download_name(self) -> str:

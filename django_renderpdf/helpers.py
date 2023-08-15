@@ -114,7 +114,7 @@ def render_pdf(
     :param context: Context parameters used when rendering the template.
 
     .. _weasyprint's documentation on url_fetcher: https://weasyprint.readthedocs.io/en/stable/tutorial.html#url-fetchers
-    """  # noqa: E501
+    """
     context = context or {}
 
     if isinstance(template, str):
