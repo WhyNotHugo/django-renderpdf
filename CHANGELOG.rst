@@ -6,6 +6,7 @@ v4.1.0
 
 - Fixed documentation not rendering on readthedocs.
 - Add support for Python 3.11.
+- Add support for Django 4.1 and 4.2.
 
 v4.0.0
 ~~~~~~

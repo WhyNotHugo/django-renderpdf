@@ -36,6 +36,8 @@ setup(
         "Framework :: Django",
         "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",
+        "Framework :: Django :: 4.1",
+        "Framework :: Django :: 4.2",
         "License :: OSI Approved :: ISC License (ISCL)",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
