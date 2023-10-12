@@ -12,7 +12,7 @@ setup(
     url="https://django-renderpdf.readthedocs.io/",
     project_urls={
         "GitHub": "https://github.com/WhyNotHugo/django-renderpdf",
-        "Funding": "https://github.com/sponsors/WhyNotHugo",
+        "Funding": "https://whynothugo.nl/sponsor/",
     },
     license="ISC",
     packages=["django_renderpdf"],

@@ -131,7 +131,7 @@ sense to move this into a separate library.
 Donations
 ---------
 
-Donations are welcome. See `here <https://github.com/sponsors/WhyNotHugo>`_ for further
+Donations are welcome. See `here <https://whynothugo.nl/sponsor/>`_ for further
 details.
 
 Licence
