@@ -1,6 +1,18 @@
 [tool.black]
 target-version = ['py38']
 
+[tool.coverage.run]
+source = ["django_renderpdf"]
+
+[tool.pytest.ini_options]
+addopts = """
+  --cov=django_renderpdf
+  --cov-report=term-missing:skip-covered
+  --no-cov-on-fail
+  --color=yes
+"""
+DJANGO_SETTINGS_MODULE = "testapp.settings"
+
 [tool.ruff]
 select = [
     "E",
