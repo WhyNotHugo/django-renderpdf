@@ -6,7 +6,7 @@ name = "django-renderpdf"
 authors = [
     {name = "Hugo Osvaldo Barrera", email = "hugo@whynothugo.nl"},
 ]
-description = "A django app to render django templates as PDF files."
+description = "Django app to render django templates as PDF files."
 readme = "README.rst"
 requires-python = ">=3.7"
 keywords = ["django", "weasyprint", "pdf"]
