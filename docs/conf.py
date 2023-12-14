@@ -14,7 +14,7 @@ import django_renderpdf
 # -- Project information -----------------------------------------------------
 
 project = "django_renderpdf"
-copyright = "2020, Hugo Osvaldo Barrera"
+copyright = "2023, Hugo Osvaldo Barrera"
 author = "Hugo Osvaldo Barrera"
 
 # The short X.Y version.
