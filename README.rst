@@ -1,22 +1,6 @@
 django-renderpdf
 ================
 
-.. image:: https://github.com/WhyNotHugo/django-renderpdf/workflows/Tests/badge.svg
-  :target: https://github.com/WhyNotHugo/django-renderpdf/actions/workflows/tests.yml
-  :alt: Actions Status
-
-.. image:: https://img.shields.io/pypi/v/django-renderpdf.svg
-  :target: https://pypi.python.org/pypi/django-renderpdf
-  :alt: Version on PyPI
-
-.. image:: https://img.shields.io/pypi/pyversions/django-renderpdf.svg
-  :target: https://pypi.org/project/django-renderpdf/
-  :alt: Python versions
-
-.. image:: https://img.shields.io/pypi/l/django-renderpdf.svg
-  :target: https://github.com/WhyNotHugo/django-renderpdf/blob/main/LICENCE
-  :alt: Licence
-
 **django-renderpdf** is a Django app to render django templates as PDF files.
 
 Introduction
