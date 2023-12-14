@@ -1,3 +1,53 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
+
+[project]
+name = "django-renderpdf"
+authors = [
+    {name = "Hugo Osvaldo Barrera", email = "hugo@whynothugo.nl"},
+    # TODO: change email elsewhere
+]
+description = "A django app to render django templates as PDF files."
+readme = "README.rst"
+requires-python = ">=3.7"
+keywords = ["django", "weasyprint", "pdf"]
+license = {text = "ISC"}
+classifiers = [
+    "Development Status :: 6 - Mature",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "License :: OSI Approved :: ISC License (ISCL)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "django>=2.2",
+    "weasyprint",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+]
+
+[project.urls]
+repository = "https://github.com/WhyNotHugo/django-renderpdf/"
+documentation = "https://django-renderpdf.readthedocs.io/"
+changelog = "https://github.com/WhyNotHugo/django-renderpdf/blob/main/CHANGELOG.rst"
+issues = "https://github.com/WhyNotHugo/django-renderpdf/issues/"
+funding = "https://whynothugo.nl/sponsor/"
+
 [tool.black]
 target-version = ['py38']
 
@@ -51,3 +101,10 @@ target-version = "py38"
 
 [tool.ruff.isort]
 force-single-line = true
+
+[tool.setuptools]
+packages = ["django_renderpdf"]
+
+[tool.setuptools_scm]
+write_to = "django_renderpdf/version.py"
+version_scheme = "post-release"
