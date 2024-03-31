@@ -63,6 +63,9 @@ addopts = """
 DJANGO_SETTINGS_MODULE = "testapp.settings"
 
 [tool.ruff]
+target-version = "py38"
+
+[tool.ruff.lint]
 select = [
     "E",
     "F",
@@ -96,9 +99,8 @@ select = [
     "PLE",
     "RUF",
 ]
-target-version = "py38"
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 force-single-line = true
 
 [tool.setuptools]
