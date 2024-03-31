@@ -138,9 +138,8 @@ class PDFView(View, ContextMixin):
             return HttpResponse(html)
         response = HttpResponse(content_type="application/pdf")
         if self.prompt_download:
-            response["Content-Disposition"] = 'attachment; filename="{}"'.format(
-                self.get_download_name()
-            )
+            filename = self.get_download_name()
+            response["Content-Disposition"] = f'attachment; filename="{filename}"'
         helpers.render_pdf(
             template=template,
             file_=response,
