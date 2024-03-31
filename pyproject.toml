@@ -39,6 +39,10 @@ dynamic = ["version"]
 docs = [
     "sphinx",
 ]
+lint = [
+    "ruff",
+    "mypy",
+]
 
 [project.urls]
 repository = "https://github.com/WhyNotHugo/django-renderpdf/"
