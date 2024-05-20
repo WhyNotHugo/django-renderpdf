@@ -26,6 +26,10 @@ class PDFView(View, ContextMixin):
 
         The name of the template file that will be rendered into a PDF file. Template
         discovery works just like any regular Django view.
+    
+    .. autoattribute:: stylesheets
+
+        List of CSS stylesheets to be passed to the PDF renderer. May include static files or urls.
 
     .. autoattribute:: allow_force_html
 
@@ -63,11 +67,13 @@ class PDFView(View, ContextMixin):
 
     .. automethod:: url_fetcher
     .. automethod:: get_template_names
+    .. autoattribute:: get_stylesheets
     .. automethod:: get_download_name
     .. automethod:: get_template_name
     """
 
     template_name: Optional[str] = None
+    stylesheets: Optional[list] = None
     allow_force_html: bool = True
     prompt_download: bool = False
     download_name: Optional[str] = None
@@ -126,7 +132,17 @@ class PDFView(View, ContextMixin):
             )
         return self.template_name
 
-    def render(self, request, template, context) -> HttpResponse:
+    def get_stylesheets(self) -> list:
+        """Return a list of CSS stylesheets which will be used to render PDF.
+        """
+        if self.stylesheets is None:
+            raise ImproperlyConfigured(
+                "PDFView with 'get_stylesheets' defined requires a definition "
+                "of 'stylesheets'."
+            )
+        return self.stylesheets
+
+    def render(self, request, styles:list, template, context) -> HttpResponse:
         """Returns a response.
 
         By default, this will contain the rendered PDF, but if both ``allow_force_html``
@@ -143,6 +159,7 @@ class PDFView(View, ContextMixin):
         helpers.render_pdf(
             template=template,
             file_=response,
+            styles=styles,
             url_fetcher=self.url_fetcher,
             context=context,
         )
@@ -153,6 +170,7 @@ class PDFView(View, ContextMixin):
         context = self.get_context_data(*args, **kwargs)
         return self.render(
             request=request,
+            styles=self.get_stylesheets(),
             template=self.get_template_names(),
             context=context,
         )

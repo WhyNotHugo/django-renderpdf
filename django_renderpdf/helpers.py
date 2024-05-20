@@ -95,6 +95,7 @@ def django_url_fetcher(url: str):
 def render_pdf(
     template: Union[List[str], str],
     file_: IO,
+    styles: list,
     url_fetcher=django_url_fetcher,
     context: Optional[dict] = None,
 ):
@@ -110,6 +111,7 @@ def render_pdf(
         one found will be used.
     :param file: A file-like object (or a Response) where to output
         the rendered PDF.
+    :param styles: A list of stylesheets to be included in the PDF.
     :param url_fetcher: See `weasyprint's documentation on url_fetcher`_.
     :param context: Context parameters used when rendering the template.
 
@@ -120,11 +122,18 @@ def render_pdf(
     if isinstance(template, str):
         template = [template]
 
+    write_pdf_args = {
+        "target":file_,
+        "stylesheets":styles
+        }
+
+    write_pdf_args = {key:value for key,value in write_pdf_args.items() if value is not None}
+        
     html = select_template(template).render(context)
     HTML(
         string=html,
         base_url="not-used://",
         url_fetcher=url_fetcher,
     ).write_pdf(
-        target=file_,
+        **write_pdf_args
     )
