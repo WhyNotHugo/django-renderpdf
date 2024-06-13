@@ -150,7 +150,7 @@ class PDFView(View, ContextMixin):
 
     # Move all the above into BasePdfView, which can be subclassed for posting
     def get(self, request, *args, **kwargs) -> HttpResponse:
-        context = self.get_context_data(*args, **kwargs)
+        context = self.get_context_data(**kwargs)
         return self.render(
             request=request,
             template=self.get_template_names(),
