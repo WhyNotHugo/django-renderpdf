@@ -91,6 +91,34 @@ Now visiting ``/shipments/labels/17``, will return a PDF file which your browser
 render. Note that, since we used the ``LoginRequiredMixin``, anonymous users will be
 redirected to the usual login screen, and then back to this view after login.
 
+Configuring WeasyPrint Options
+------------------------------
+
+To configure WeasyPrint options globally, you can use the `WEASYPRINT_OPTIONS`
+setting in your Django `settings.py` file. This setting allows you to define
+default options that will be applied to all PDF renderings. You can override
+these options at the view level if necessary.
+
+Here's an example of how to set `WEASYPRINT_OPTIONS`:
+
+.. code:: python
+
+    # settings.py
+    WEASYPRINT_OPTIONS = {
+        'zoom': 1.0,
+        'presentational_hints': True,
+        'optimize_images': False,
+        'jpeg_quality': 85,
+        'dpi': 96,
+        'pdf_version': '1.7',
+        'uncompressed_pdf': True,
+        'attachments': None,
+        'pdf_forms': False,
+        'hinting': False,
+        'cache': None,
+        # Add any other WeasyPrint options you need
+    }
+
 API
 ---
 
