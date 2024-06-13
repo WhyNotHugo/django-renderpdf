@@ -1,11 +1,12 @@
 import mimetypes
-from typing import IO
 from typing import List
 from typing import Optional
 from typing import Union
 
+from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.http import HttpResponse
 from django.http.request import HttpRequest
 from django.template.loader import select_template
 from django.urls import resolve
@@ -94,9 +95,10 @@ def django_url_fetcher(url: str):
 
 def render_pdf(
     template: Union[List[str], str],
-    file_: IO,
+    file_: HttpResponse,
     url_fetcher=django_url_fetcher,
     context: Optional[dict] = None,
+    **options
 ):
     """
     Writes the PDF data into ``file_``. Note that ``file_`` can actually be a
@@ -108,7 +110,7 @@ def render_pdf(
     :param template: A list of templates, or a single template. If a list of
         templates is passed, these will be searched in order, and the first
         one found will be used.
-    :param file: A file-like object (or a Response) where to output
+    :param file_: A file-like object (or a Response) where to output
         the rendered PDF.
     :param url_fetcher: See `weasyprint's documentation on url_fetcher`_.
     :param context: Context parameters used when rendering the template.
@@ -119,7 +121,7 @@ def render_pdf(
 
     if isinstance(template, str):
         template = [template]
-
+    options = getattr(settings, 'WEASYPRINT_OPTIONS', {})
     html = select_template(template).render(context)
     HTML(
         string=html,
@@ -127,4 +129,5 @@ def render_pdf(
         url_fetcher=url_fetcher,
     ).write_pdf(
         target=file_,
+        **options
     )
