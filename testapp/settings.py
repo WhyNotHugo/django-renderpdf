@@ -67,7 +67,7 @@ WEASYPRINT_OPTIONS = {
     'zoom': 1.0,
     'presentational_hints': True,
     'optimize_images': False,
-    'jpeg_quality': 5,
+    'jpeg_quality': 85,
     'dpi': 96,
     'pdf_version': '1.7',
     'uncompressed_pdf': True,
