@@ -1,10 +1,11 @@
 Changelog
 ---------
 
-v4.1.0
+v5.0.0
 ~~~~~~
 
 - Fixed documentation not rendering on readthedocs.
+- Drop support for Python 3.8.
 - Add support for Python 3.11.
 - Add support for Django 4.1 and 4.2.
 
