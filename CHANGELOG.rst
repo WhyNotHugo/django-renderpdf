@@ -6,8 +6,8 @@ v5.0.0
 
 - Fixed documentation not rendering on readthedocs.
 - Drop support for Python 3.8.
-- Add support for Python 3.11 and 3.12.
-- Add support for Django 4.1 and 4.2.
+- Add support for Python 3.11, 3.12 and 3.13.
+- Add support for Django 4.1, 4.2 and 5.1.
 
 v4.0.0
 ~~~~~~
