@@ -1,6 +1,5 @@
 import mimetypes
 from typing import IO
-from typing import List
 from typing import Optional
 from typing import Union
 

@@ -22,16 +22,17 @@ classifiers = [
     "License :: OSI Approved :: ISC License (ISCL)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Topic :: Internet :: WWW/HTTP",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
     "django>=2.2",
-    "weasyprint",
+    "weasyprint<63",
 ]
 dynamic = ["version"]
 
@@ -52,7 +53,7 @@ issues = "https://github.com/WhyNotHugo/django-renderpdf/issues/"
 funding = "https://whynothugo.nl/sponsor/"
 
 [tool.black]
-target-version = ['py38']
+target-version = ['py39']
 
 [tool.coverage.run]
 source = ["django_renderpdf"]
@@ -67,7 +68,7 @@ addopts = """
 DJANGO_SETTINGS_MODULE = "testapp.settings"
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py39"
 
 [tool.ruff.lint]
 select = [

@@ -1,4 +1,3 @@
-from typing import List
 from typing import Optional
 
 from django.core.exceptions import ImproperlyConfigured
@@ -103,7 +102,7 @@ class PDFView(View, ContextMixin):
             )
         return self.download_name
 
-    def get_template_names(self) -> List[str]:
+    def get_template_names(self) -> list[str]:
         """Return a list of template names to be used for the request.
 
         Must return a list. By default, just returns ``[self.template_name]``.
