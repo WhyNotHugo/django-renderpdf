@@ -1,4 +1,5 @@
 import mimetypes
+from typing import IO
 from typing import List
 from typing import Optional
 from typing import Union
@@ -95,7 +96,7 @@ def django_url_fetcher(url: str):
 
 def render_pdf(
     template: Union[List[str], str],
-    file_: HttpResponse,
+    file_: Union[HttpResponse, IO],
     url_fetcher=django_url_fetcher,
     context: Optional[dict] = None,
     **options
