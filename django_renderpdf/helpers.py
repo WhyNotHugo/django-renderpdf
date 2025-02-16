@@ -98,7 +98,7 @@ def render_pdf(
     file_: Union[HttpResponse, IO],
     url_fetcher=django_url_fetcher,
     context: Optional[dict] = None,
-    **options
+    options: dict
 ):
     """
     Writes the PDF data into ``file_``. Note that ``file_`` can actually be a
