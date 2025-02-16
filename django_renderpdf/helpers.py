@@ -113,7 +113,7 @@ def render_pdf(
     :param file_: A file-like object (or a Response) where to output
         the rendered PDF.
     :param url_fetcher: See `weasyprint's documentation on url_fetcher`_.
-    :param context: Context parameters used when rendering the template.
+    :param options: Additional options to be passed to weasyprint.
 
     .. _weasyprint's documentation on url_fetcher: https://weasyprint.readthedocs.io/en/stable/tutorial.html#url-fetchers
     """
