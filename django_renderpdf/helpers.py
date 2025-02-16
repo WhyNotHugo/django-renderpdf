@@ -122,13 +122,10 @@ def render_pdf(
 
     if isinstance(template, str):
         template = [template]
-    options = getattr(settings, 'WEASYPRINT_OPTIONS', options)
+    options = getattr(settings, "WEASYPRINT_OPTIONS", options)
     html = select_template(template).render(context)
     HTML(
         string=html,
         base_url="not-used://",
         url_fetcher=url_fetcher,
-    ).write_pdf(
-        target=file_,
-        **options
-    )
+    ).write_pdf(target=file_, **options)
