@@ -63,7 +63,8 @@ DATABASES = {
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR.joinpath("testapp/static/")
-WEASYPRINT_OPTIONS = {    "zoom": 1.0,
+WEASYPRINT_OPTIONS = {
+    "zoom": 1.0,
     "presentational_hints": True,
     "optimize_images": False,
     "jpeg_quality": 85,
