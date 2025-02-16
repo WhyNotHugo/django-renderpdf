@@ -6,7 +6,6 @@ from typing import Union
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.http import HttpResponse
 from django.http.request import HttpRequest
 from django.template.loader import select_template
 from django.urls import resolve
@@ -94,11 +93,11 @@ def django_url_fetcher(url: str):
 
 
 def render_pdf(
-    template: Union[List[str], str],
-    file_: Union[HttpResponse, IO],
+    template: Union[list[str], str],
+    file_: IO,
     url_fetcher=django_url_fetcher,
     context: Optional[dict] = None,
-    options: dict
+    options: Optional[dict] = None,
 ):
     """
     Writes the PDF data into ``file_``. Note that ``file_`` can actually be a
@@ -113,11 +112,13 @@ def render_pdf(
     :param file_: A file-like object (or a Response) where to output
         the rendered PDF.
     :param url_fetcher: See `weasyprint's documentation on url_fetcher`_.
+    :param context: Context parameters used when rendering the template.
     :param options: Additional options to be passed to weasyprint.
 
     .. _weasyprint's documentation on url_fetcher: https://weasyprint.readthedocs.io/en/stable/tutorial.html#url-fetchers
     """
     context = context or {}
+    options = options or {}
 
     if isinstance(template, str):
         template = [template]
