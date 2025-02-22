@@ -2,6 +2,7 @@ import io
 from unittest.mock import patch
 
 import pytest
+from django.conf import settings
 from django.template.exceptions import TemplateDoesNotExist
 
 from django_renderpdf import helpers
@@ -99,3 +100,28 @@ def test_render_pdf_with_non_existant():
 
     with pytest.raises(TemplateDoesNotExist):
         helpers.render_pdf(["idontexist.html"], file_)
+
+
+def test_render_pdf_with_merged_options():
+    global_options = {
+        "zoom": 1.0,
+        "presentational_hints": True,
+        "optimize_images": False,
+        "jpeg_quality": 85,
+        "dpi": 96,
+        "pdf_version": "1.7",
+        "uncompressed_pdf": True,
+        "attachments": None,
+        "pdf_forms": False,
+        "hinting": False,
+        "cache": None,
+    }
+    local_options = {"jpeg_quality": 90, "cache": "memory"}
+    expected_options = {**global_options, **local_options}
+    file_ = io.BytesIO()
+    with (
+        patch.object(settings, "WEASYPRINT_OPTIONS", global_options),
+        patch("django_renderpdf.helpers.HTML.write_pdf") as mock_write_pdf,
+    ):
+        helpers.render_pdf("test_template.html", file_, options=local_options)
+        mock_write_pdf.assert_called_once_with(target=file_, **expected_options)
