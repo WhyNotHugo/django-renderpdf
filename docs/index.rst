@@ -91,6 +91,8 @@ Now visiting ``/shipments/labels/17``, will return a PDF file which your browser
 render. Note that, since we used the ``LoginRequiredMixin``, anonymous users will be
 redirected to the usual login screen, and then back to this view after login.
 
+.. _weasyprint-options:
+
 Configuring WeasyPrint Options
 ------------------------------
 
