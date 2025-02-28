@@ -8,7 +8,7 @@ authors = [
 ]
 description = "Django app to render django templates as PDF files."
 readme = "README.rst"
-requires-python = ">=3.7"
+requires-python = ">=3.9"
 keywords = ["django", "weasyprint", "pdf"]
 license = {text = "ISC"}
 classifiers = [
