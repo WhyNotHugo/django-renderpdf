@@ -1,0 +1,26 @@
+# Run this with:
+#   hut builds submit --follow publish-release.yaml
+image: alpine/3.21
+packages:
+  - py3-build
+  - py3-setuptools
+  - py3-setuptools_scm
+  - py3-wheel
+  - twine
+sources:
+  - https://github.com/WhyNotHugo/django-renderpdf
+secrets:
+  - 0bb84891-c3a2-4ad6-8e63-eb5d5e1b411d # PyPI token.
+tasks:
+  - check: |
+      cd django-renderpdf
+      git fetch --tags
+
+      # Stop here unless this is a tag.
+      git describe --exact-match --tags || complete-build
+  - build: |
+      cd django-renderpdf
+      python -m build --no-isolation
+  - publish: |
+      cd django-renderpdf
+      twine upload --non-interactive dist/*
