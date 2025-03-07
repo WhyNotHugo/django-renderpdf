@@ -1,4 +1,5 @@
 import mimetypes
+from contextlib import suppress
 from typing import IO
 from typing import Optional
 from typing import Union
@@ -19,6 +20,31 @@ class InvalidRelativeUrl(ValueError):  # noqa: N818
     """Raised when a relative URL cannot be handled by Django."""
 
 
+def _read_staticfile(url: str, base_url: str):
+    filename = url.replace(base_url, "", 1)
+    data = None
+
+    path = finders.find(filename)
+    if path:
+        # Read static files from source (e.g.: the file that's bundled with the Django
+        # app that provides it. This also picks up uncollected staticfiles which is
+        # useful when developing / in DEBUG mode.
+        with open(path, "rb") as f:
+            data = f.read()
+    else:
+        # File was not found by a finder. This commonly happens when running in
+        # DEBUG=True with a storage that uses Manifests or alike, since the filename
+        # won't match with the source file. In these cases, use the _storage_ to find
+        # the file instead:
+        with staticfiles_storage.open(filename) as f:
+            data = f.read()
+
+    return {
+        "mime_type": mimetypes.guess_type(url)[0],
+        "string": data,
+    }
+
+
 def django_url_fetcher(url: str):
     """Returns the file for a given URL.
 
@@ -36,38 +62,18 @@ def django_url_fetcher(url: str):
     resources data as a string and ``mime_type``, which is the identified
     mime type for the resource.
     """
+
     # If the URL looks like a staticfile, try to load it as such.
-    # Reading it from the storage avoids a network call in many cases (unless the
-    # storage is remote, in which case this improves nothing:
+    # Reading it from the storage avoids the HTTP round-trip in many cases.
     try:
-        if url.startswith(staticfiles_storage.base_url):
-            filename = url.replace(staticfiles_storage.base_url, "", 1)
-            data = None
-
-            path = finders.find(filename)
-            if path:
-                # Read static files from source (e.g.: the file that's bundled with the
-                # Django app that provides it.
-                # This also picks up uncollected staticfiles (useful when developing /
-                # in DEBUG mode).
-                with open(path, "rb") as f:
-                    data = f.read()
-            else:
-                # File was not found by a finder. This commonly happens when running in
-                # DEBUG=True with a storage that uses Manifests or alike, since the
-                # filename won't match with the source file.
-                # In these cases, use the _storage_ to find the file instead:
-                with staticfiles_storage.open(filename) as f:
-                    data = f.read()
-
-            return {
-                "mime_type": mimetypes.guess_type(url)[0],
-                "string": data,
-            }
-    except (ValueError, FileNotFoundError):
-        # Looks like this wasn't a staticfile (or maybe it was a missing one?)
-        # Let it resolve as a normal URL.
+        static_base_url = staticfiles_storage.base_url
+    except AttributeError:
+        # Storage has no attribute base_url, skip this.
         pass
+    else:
+        if url.startswith(static_base_url):
+            with suppress(ValueError, FileNotFoundError):
+                return _read_staticfile(url, static_base_url)
 
     try:
         # If the URL is a relative URL, use Django's resolver to figure out how Django
