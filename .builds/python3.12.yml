@@ -1,0 +1,24 @@
+image: alpine/3.21
+packages:
+  - alpine-sdk
+  - cairo-dev
+  - gcc
+  - gdk-pixbuf-dev
+  - jpeg-dev
+  - libffi-dev
+  - font-dejavu
+  - musl-dev
+  - pango-dev
+  - py3-tox
+  - zlib-dev
+sources:
+  - https://github.com/whyNotHugo/django-renderpdf
+environment:
+  FORCE_COLOR: yes
+  CI: true
+tasks:
+  - check-python:
+      python --version | grep 'Python 3.12'
+  - tests: |
+      cd django-renderpdf
+      tox  -e py,lint
