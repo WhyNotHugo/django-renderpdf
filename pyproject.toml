@@ -8,7 +8,7 @@ authors = [
 ]
 description = "Django app to render django templates as PDF files."
 readme = "README.rst"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 keywords = ["django", "weasyprint", "pdf"]
 license = {text = "ISC"}
 classifiers = [
@@ -22,7 +22,6 @@ classifiers = [
     "License :: OSI Approved :: ISC License (ISCL)",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -53,7 +52,7 @@ issues = "https://github.com/WhyNotHugo/django-renderpdf/issues/"
 funding = "https://whynothugo.nl/sponsor/"
 
 [tool.black]
-target-version = ['py39']
+target-version = ['py310']
 
 [tool.coverage.run]
 source = ["django_renderpdf"]
@@ -68,7 +67,7 @@ addopts = """
 DJANGO_SETTINGS_MODULE = "testapp.settings"
 
 [tool.ruff]
-target-version = "py39"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = [

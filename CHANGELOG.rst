@@ -1,6 +1,11 @@
 Changelog
 ---------
 
+v6.0.0
+~~~~~~
+
+- Drop support for Python 3.9.
+
 v5.0.0
 ~~~~~~
 
