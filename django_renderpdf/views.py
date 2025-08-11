@@ -1,5 +1,3 @@
-from typing import Optional
-
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpResponse
 from django.template.loader import select_template
@@ -66,10 +64,10 @@ class PDFView(View, ContextMixin):
     .. automethod:: get_template_name
     """
 
-    template_name: Optional[str] = None
+    template_name: str | None = None
     allow_force_html: bool = True
     prompt_download: bool = False
-    download_name: Optional[str] = None
+    download_name: str | None = None
 
     def url_fetcher(self, url):
         """Returns the file matching URL.

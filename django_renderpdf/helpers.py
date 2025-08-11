@@ -1,7 +1,5 @@
 import mimetypes
 from typing import IO
-from typing import Optional
-from typing import Union
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -93,11 +91,11 @@ def django_url_fetcher(url: str):
 
 
 def render_pdf(
-    template: Union[list[str], str],
+    template: list[str] | str,
     file_: IO,
     url_fetcher=django_url_fetcher,
-    context: Optional[dict] = None,
-    options: Optional[dict] = None,
+    context: dict | None = None,
+    options: dict | None = None,
 ):
     """
     Writes the PDF data into ``file_``. Note that ``file_`` can actually be a
