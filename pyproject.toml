@@ -51,9 +51,6 @@ changelog = "https://github.com/WhyNotHugo/django-renderpdf/blob/main/CHANGELOG.
 issues = "https://github.com/WhyNotHugo/django-renderpdf/issues/"
 funding = "https://whynothugo.nl/sponsor/"
 
-[tool.black]
-target-version = ['py310']
-
 [tool.coverage.run]
 source = ["django_renderpdf"]
 
