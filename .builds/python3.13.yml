@@ -1,0 +1,23 @@
+image: archlinux
+packages:
+  - cairo
+  - gdk-pixbuf2
+  - libffi
+  - pango
+  - pkg-config
+  - python-pip
+  - python-setuptools
+  - python-tox
+  - python-wheel
+  - ttf-dejavu
+sources:
+  - https://github.com/whyNotHugo/django-renderpdf
+environment:
+  FORCE_COLOR: yes
+  CI: true
+tasks:
+  - check-python:
+      python --version | grep 'Python 3.13'
+  - tests: |
+      cd django-renderpdf
+      tox  -e py,lint
