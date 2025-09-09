@@ -64,9 +64,8 @@ addopts = """
 DJANGO_SETTINGS_MODULE = "testapp.settings"
 
 [tool.ruff.lint]
-select = [
+extend-select = [
     "E",
-    "F",
     "W",
     "I",
     "N",
