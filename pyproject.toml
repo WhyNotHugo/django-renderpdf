@@ -66,7 +66,7 @@ DJANGO_SETTINGS_MODULE = "testapp.settings"
 [tool.ruff.lint]
 extend-select = [
     # "A", Conflicts with some Django-defined names.
-    # "ANN",
+    "ANN",
     "B",
     "BLE",
     "C4", # Comprehensions
@@ -95,6 +95,10 @@ extend-select = [
     "UP",
     "W",
     "YTT",
+]
+ignore = [
+  "ANN002",  # Annotations for *args
+  "ANN003",  # Annotations for **kwargs
 ]
 
 [tool.ruff.lint.isort]

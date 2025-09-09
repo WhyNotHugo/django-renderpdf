@@ -1,5 +1,9 @@
+from collections.abc import Sequence
+
 from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpRequest
 from django.http import HttpResponse
+from django.template import Context
 from django.template.loader import select_template
 from django.views.generic import View
 from django.views.generic.base import ContextMixin
@@ -69,7 +73,7 @@ class PDFView(View, ContextMixin):
     prompt_download: bool = False
     download_name: str | None = None
 
-    def url_fetcher(self, url):
+    def url_fetcher(self, url: str) -> dict:
         """Returns the file matching URL.
 
         This method will handle any URL resources that rendering HTML requires
@@ -123,7 +127,12 @@ class PDFView(View, ContextMixin):
             )
         return self.template_name
 
-    def render(self, request, template, context) -> HttpResponse:
+    def render(
+        self,
+        request: HttpRequest,
+        template: Sequence[str] | str,
+        context: Context,
+    ) -> HttpResponse:
         """Returns a response.
 
         By default, this will contain the rendered PDF, but if both ``allow_force_html``
@@ -146,7 +155,7 @@ class PDFView(View, ContextMixin):
         return response
 
     # Move all the above into BasePdfView, which can be subclassed for posting
-    def get(self, request, *args, **kwargs) -> HttpResponse:
+    def get(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         context = self.get_context_data(**kwargs)
         return self.render(
             request=request,

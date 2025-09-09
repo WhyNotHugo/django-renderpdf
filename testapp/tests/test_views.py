@@ -13,7 +13,7 @@ factory = RequestFactory()
 
 
 class PromptDownloadTestCase(TestCase):
-    def test_prompt_download(self):
+    def test_prompt_download(self) -> None:
         request = factory.get("/some_view")
 
         response = views.PromptDownloadView.as_view()(request)
@@ -29,7 +29,7 @@ class PromptDownloadTestCase(TestCase):
         # Assert that response looks like a PDF
         assert response.content.startswith(b"%PDF-1.") is True
 
-    def test_dont_prompt_download(self):
+    def test_dont_prompt_download(self) -> None:
         request = factory.get("/some_view")
 
         response = views.NoPromptDownloadView.as_view()(request)
@@ -44,7 +44,7 @@ class PromptDownloadTestCase(TestCase):
 
 
 class ForceHTMLTestCase(TestCase):
-    def test_force_html_allowed(self):
+    def test_force_html_allowed(self) -> None:
         request = factory.get("/some_view?html=true")
 
         response = views.AllowForceHtmlView.as_view()(request)
@@ -55,7 +55,7 @@ class ForceHTMLTestCase(TestCase):
             in response.serialize_headers().splitlines()
         )
 
-    def test_no_force_html_allowed(self):
+    def test_no_force_html_allowed(self) -> None:
         request = factory.get("/some_view")
 
         response = views.AllowForceHtmlView.as_view()(request)
@@ -67,7 +67,7 @@ class ForceHTMLTestCase(TestCase):
         # Assert that response looks like a PDF
         assert response.content.startswith(b"%PDF-1.") is True
 
-    def test_force_html_disallowed(self):
+    def test_force_html_disallowed(self) -> None:
         request = factory.get("/some_view?html=true")
 
         response = views.DisallowForceHtmlView.as_view()(request)
@@ -79,7 +79,7 @@ class ForceHTMLTestCase(TestCase):
         # Assert that response looks like a PDF
         assert response.content.startswith(b"%PDF-1.") is True
 
-    def test_no_force_html_disallowed(self):
+    def test_no_force_html_disallowed(self) -> None:
         request = factory.get("/some_view")
 
         response = views.DisallowForceHtmlView.as_view()(request)
@@ -97,7 +97,7 @@ class CustomUrlFetcherTestCase(TestCase):
 
 
 class StaticFileResolutionTestCase(TestCase):
-    def test_url_fetcher_used(self):
+    def test_url_fetcher_used(self) -> None:
         request = factory.get("/some_view")
 
         with patch(
@@ -115,7 +115,7 @@ class StaticFileResolutionTestCase(TestCase):
         assert fetcher.call_args == call("/static/path/not/relevant.css")
 
 
-def test_view_with_no_template(rf):
+def test_view_with_no_template(rf: RequestFactory) -> None:
     request = factory.get("/test")
 
     with pytest.raises(
@@ -125,7 +125,7 @@ def test_view_with_no_template(rf):
         views.NoTemplateDefinedView.as_view()(request)
 
 
-def test_view_with_missing_download_name(rf):
+def test_view_with_missing_download_name(rf: RequestFactory) -> None:
     request = factory.get("/test")
 
     with pytest.raises(
@@ -135,9 +135,9 @@ def test_view_with_missing_download_name(rf):
         views.PromptWithMissingDownloadNameView.as_view()(request)
 
 
-def test_view_with_multiple_template_names(rf):
+def test_view_with_multiple_template_names(rf: RequestFactory) -> None:
     class TestView(PDFView):
-        def get_template_names(self):
+        def get_template_names(self) -> list[str]:
             return [
                 "test_template.html",
                 "test_template.html",

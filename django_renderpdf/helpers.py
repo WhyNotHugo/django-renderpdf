@@ -1,4 +1,6 @@
 import mimetypes
+from collections.abc import Callable
+from collections.abc import Sequence
 from typing import IO
 
 from django.conf import settings
@@ -17,7 +19,8 @@ class InvalidRelativeUrl(ValueError):  # noqa: N818
     """Raised when a relative URL cannot be handled by Django."""
 
 
-def django_url_fetcher(url: str):
+def django_url_fetcher(url: str) -> dict:
+    # TODO: define a TypedDict with the return type and upstream it.
     """Returns the file for a given URL.
 
     If the URL appear to be a static file, we will attempt to load it internally.
@@ -91,12 +94,12 @@ def django_url_fetcher(url: str):
 
 
 def render_pdf(
-    template: list[str] | str,
+    template: Sequence[str] | str,
     file_: IO,
-    url_fetcher=django_url_fetcher,
+    url_fetcher: Callable[[str], dict] = django_url_fetcher,
     context: dict | None = None,
     options: dict | None = None,
-):
+) -> None:
     """
     Writes the PDF data into ``file_``. Note that ``file_`` can actually be a
     Django Response object as well, since these are file-like objects.

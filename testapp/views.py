@@ -1,3 +1,4 @@
+from django.http import HttpRequest
 from django.http import HttpResponse
 from django.views.generic import View
 
@@ -32,7 +33,7 @@ class TemplateWithStaticFileView(PDFView):
 class CssView(View):
     """Test view that returns some CSS."""
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         return HttpResponse("* { background-color: red; }")
 
 

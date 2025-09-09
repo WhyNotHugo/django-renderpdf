@@ -9,7 +9,7 @@ from django_renderpdf import helpers
 from django_renderpdf.helpers import InvalidRelativeUrl
 
 
-def test_static_relative_fetched():
+def test_static_relative_fetched() -> None:
     fetched = helpers.django_url_fetcher("/static/styles.css")
     assert fetched == {
         "string": b"html { margin: 0; }\n",
@@ -17,12 +17,12 @@ def test_static_relative_fetched():
     }
 
 
-def test_static_relative_not_found():
+def test_static_relative_not_found() -> None:
     with pytest.raises(InvalidRelativeUrl):
         helpers.django_url_fetcher("/static/non-existent.css")
 
 
-def test_relative_staticfile_fetched():
+def test_relative_staticfile_fetched() -> None:
     # Manifest files normally won't be found by a finder, but will be present in the
     # staticfiles storage.
     #
@@ -39,7 +39,7 @@ def test_relative_staticfile_fetched():
         }
 
 
-def test_relative_url_resolves():
+def test_relative_url_resolves() -> None:
     fetched = helpers.django_url_fetcher("/view.css")
     assert fetched == {
         "string": b"* { background-color: red; }",
@@ -47,12 +47,12 @@ def test_relative_url_resolves():
     }
 
 
-def test_bogus_relative_url_raises():
+def test_bogus_relative_url_raises() -> None:
     with pytest.raises(InvalidRelativeUrl):
         helpers.django_url_fetcher("/non-existant.css")
 
 
-def test_absolute_path_resolves():
+def test_absolute_path_resolves() -> None:
     mocked_file = {"mime_type": "text/css", "string": "* { font-size: 100px; }"}
 
     with patch(
@@ -66,7 +66,7 @@ def test_absolute_path_resolves():
     assert fetched == {"mime_type": "text/css", "string": "* { font-size: 100px; }"}
 
 
-def test_render_pdf_single_template():
+def test_render_pdf_single_template() -> None:
     file_ = io.BytesIO()
     helpers.render_pdf("test_template.html", file_)
 
@@ -77,7 +77,7 @@ def test_render_pdf_single_template():
     assert len(data) > 2000
 
 
-def test_render_pdf_several_templates():
+def test_render_pdf_several_templates() -> None:
     file_ = io.BytesIO()
     helpers.render_pdf(
         ["test_template.html", "test_template_with_staticfile.html"],
@@ -87,7 +87,7 @@ def test_render_pdf_several_templates():
     assert len(file_.getvalue()) > 2000
 
 
-def test_render_pdf_with_some_non_existant():
+def test_render_pdf_with_some_non_existant() -> None:
     file_ = io.BytesIO()
     helpers.render_pdf(["idontexist.html", "test_template.html"], file_)
 
@@ -95,14 +95,14 @@ def test_render_pdf_with_some_non_existant():
     assert len(file_.getvalue()) > 2000
 
 
-def test_render_pdf_with_non_existant():
+def test_render_pdf_with_non_existant() -> None:
     file_ = io.BytesIO()
 
     with pytest.raises(TemplateDoesNotExist):
         helpers.render_pdf(["idontexist.html"], file_)
 
 
-def test_render_pdf_with_merged_options():
+def test_render_pdf_with_merged_options() -> None:
     global_options = {
         "zoom": 1.0,
         "presentational_hints": True,
