@@ -4,8 +4,11 @@ Changelog
 v6.0.0
 ~~~~~~
 
-- Drop support for Python 3.9.
-- ``weasyprint>=63,<68`` is now required.
+- Drop support for Python 3.9 and 3.10.
+- Add support for Python 3.14.
+- Drop support for Django < 4.2.
+- Add support for Django 5.1 and 5.2.
+- Require ``weasyprint>=63,<68``.
 
 v5.0.0
 ~~~~~~
