@@ -3,6 +3,7 @@ from unittest.mock import patch
 
 import pytest
 from django.core.exceptions import ImproperlyConfigured
+from django.http import HttpResponse
 from django.test import RequestFactory
 from django.test import TestCase
 
@@ -17,6 +18,7 @@ class PromptDownloadTestCase(TestCase):
         request = factory.get("/some_view")
 
         response = views.PromptDownloadView.as_view()(request)
+        assert isinstance(response, HttpResponse)
         assert response.status_code == 200
         assert (
             b"Content-Type: application/pdf"
@@ -33,6 +35,7 @@ class PromptDownloadTestCase(TestCase):
         request = factory.get("/some_view")
 
         response = views.NoPromptDownloadView.as_view()(request)
+        assert isinstance(response, HttpResponse)
         assert response.status_code == 200
         assert (
             b"Content-Type: application/pdf"
@@ -48,6 +51,7 @@ class ForceHTMLTestCase(TestCase):
         request = factory.get("/some_view?html=true")
 
         response = views.AllowForceHtmlView.as_view()(request)
+        assert isinstance(response, HttpResponse)
         assert response.status_code == 200
         assert response.content == b"Hi!\n"
         assert (
@@ -59,6 +63,7 @@ class ForceHTMLTestCase(TestCase):
         request = factory.get("/some_view")
 
         response = views.AllowForceHtmlView.as_view()(request)
+        assert isinstance(response, HttpResponse)
         assert response.status_code == 200
         assert (
             b"Content-Type: application/pdf"
@@ -71,6 +76,7 @@ class ForceHTMLTestCase(TestCase):
         request = factory.get("/some_view?html=true")
 
         response = views.DisallowForceHtmlView.as_view()(request)
+        assert isinstance(response, HttpResponse)
         assert response.status_code == 200
         assert (
             b"Content-Type: application/pdf"
@@ -83,6 +89,7 @@ class ForceHTMLTestCase(TestCase):
         request = factory.get("/some_view")
 
         response = views.DisallowForceHtmlView.as_view()(request)
+        assert isinstance(response, HttpResponse)
         assert response.status_code == 200
         assert (
             b"Content-Type: application/pdf"

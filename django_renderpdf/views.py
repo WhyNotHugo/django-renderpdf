@@ -1,9 +1,9 @@
 from collections.abc import Sequence
+from typing import Any
 
 from django.core.exceptions import ImproperlyConfigured
 from django.http import HttpRequest
 from django.http import HttpResponse
-from django.template import Context
 from django.template.loader import select_template
 from django.views.generic import View
 from django.views.generic.base import ContextMixin
@@ -131,7 +131,7 @@ class PDFView(View, ContextMixin):
         self,
         request: HttpRequest,
         template: Sequence[str] | str,
-        context: Context,
+        context: dict[str, Any],
     ) -> HttpResponse:
         """Returns a response.
 

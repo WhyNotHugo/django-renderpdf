@@ -42,6 +42,7 @@ docs = [
 lint = [
     "ruff",
     "mypy",
+    "django-stubs",
 ]
 
 [project.urls]
@@ -103,6 +104,11 @@ ignore = [
 
 [tool.ruff.lint.isort]
 force-single-line = true
+
+[tool.mypy]
+[[tool.mypy.overrides]]
+module = "weasyprint"
+ignore_missing_imports = true
 
 [tool.setuptools]
 packages = ["django_renderpdf"]

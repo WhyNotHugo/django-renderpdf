@@ -6,6 +6,7 @@ from typing import IO
 from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
+from django.http import HttpResponse
 from django.http.request import HttpRequest
 from django.template.loader import select_template
 from django.urls import resolve
@@ -41,8 +42,9 @@ def django_url_fetcher(url: str) -> dict:
     # Reading it from the storage avoids a network call in many cases (unless the
     # storage is remote, in which case this improves nothing:
     try:
-        if url.startswith(staticfiles_storage.base_url):
-            filename = url.replace(staticfiles_storage.base_url, "", 1)
+        base_url = getattr(staticfiles_storage, "base_url", None)
+        if base_url is not None and url.startswith(base_url):
+            filename = url.replace(base_url, "", 1)
             data = None
 
             path = finders.find(filename)
@@ -95,7 +97,7 @@ def django_url_fetcher(url: str) -> dict:
 
 def render_pdf(
     template: Sequence[str] | str,
-    file_: IO,
+    file_: IO[bytes] | HttpResponse,
     url_fetcher: Callable[[str], dict] = django_url_fetcher,
     context: dict | None = None,
     options: dict | None = None,
