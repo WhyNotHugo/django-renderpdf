@@ -21,4 +21,7 @@ tasks:
       python --version | grep 'Python 3.12'
   - tests: |
       cd django-renderpdf
-      tox  -e py,lint
+      tox  -e py
+  - lint: |
+      cd django-renderpdf
+      tox  -e lint
