@@ -125,7 +125,8 @@ def render_pdf(
         template = [template]
     global_options = getattr(settings, "WEASYPRINT_OPTIONS", {})
     options = {**global_options, **options}
-    html = select_template(template).render(context)
+    # HACK: Workaround for Python 3.10 and Python 3.11.
+    html = str.__str__(select_template(template).render(context))
     HTML(
         string=html,
         base_url="not-used://",
