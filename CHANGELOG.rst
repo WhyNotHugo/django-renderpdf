@@ -5,6 +5,7 @@ v6.0.0
 ~~~~~~
 
 - Drop support for Python 3.9.
+- ``weasyprint>=63,<68`` is now required.
 
 v5.0.0
 ~~~~~~
