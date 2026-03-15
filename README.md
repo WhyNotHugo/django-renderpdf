@@ -1,5 +1,10 @@
 # django-renderpdf
 
+[Documentation](https://django-renderpdf.readthedocs.io/)
+| [Source](https://git.sr.ht/~whynothugo/django-renderpdf)
+| [Issues](https://todo.sr.ht/~whynothugo/django-renderpdf)
+| [Chat](irc://ircs.libera.chat:6697/#whynothugo)
+
 **django-renderpdf** is a Django app to render django templates as PDF files.
 
 ## Introduction
