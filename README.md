@@ -1,5 +1,9 @@
 # django-renderpdf
 
+**This project [has moved].**
+
+[has moved]: https://sr.ht/~whynothugo/django-renderpdf/
+
 [Documentation](https://django-renderpdf.readthedocs.io/)
 | [Source](https://git.sr.ht/~whynothugo/django-renderpdf)
 | [Issues](https://todo.sr.ht/~whynothugo/django-renderpdf)
