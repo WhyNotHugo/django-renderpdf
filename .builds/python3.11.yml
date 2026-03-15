@@ -1,16 +1,15 @@
-image: alpine/3.19
+image: debian/bookworm
 packages:
-  - alpine-sdk
-  - cairo-dev
-  - gcc
-  - gdk-pixbuf-dev
-  - jpeg-dev
+  - build-essential
+  - fonts-dejavu
+  - libcairo2-dev
   - libffi-dev
-  - font-dejavu
-  - musl-dev
-  - pango-dev
-  - py3-tox
-  - zlib-dev
+  - libgdk-pixbuf2.0-dev
+  - libjpeg-dev
+  - libpango1.0-dev
+  - python3-dev
+  - tox
+  - zlib1g-dev
 sources:
   - https://github.com/whyNotHugo/django-renderpdf
 environment:
@@ -18,10 +17,10 @@ environment:
   CI: true
 tasks:
   - check-python:
-      python --version | grep 'Python 3.11'
+      python3 --version | grep 'Python 3.11'
   - tests: |
       cd django-renderpdf
-      tox  -e py
+      tox -e py311
   - lint: |
       cd django-renderpdf
-      tox  -e lint
+      tox -e lint
