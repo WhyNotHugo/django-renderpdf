@@ -17,7 +17,7 @@ environment:
   CI: true
 tasks:
   - check-python:
-      python --version | grep 'Python 3.13'
+      python --version | grep 'Python 3.14'
   - tests: |
       cd django-renderpdf
       tox  -e py
