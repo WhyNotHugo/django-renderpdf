@@ -8,7 +8,7 @@ packages:
   - py3-wheel
   - twine
 sources:
-  - https://github.com/WhyNotHugo/django-renderpdf
+  - https://git.sr.ht/~whynothugo/django-renderpdf
 secrets:
   - 0bb84891-c3a2-4ad6-8e63-eb5d5e1b411d # PyPI token.
 tasks:

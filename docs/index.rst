@@ -145,7 +145,7 @@ If you think you found a bug, or need help with something specific:
 - If there's nothing relevant, please open a new issue describing your problem, and
   what you've tried so far.
 
-Issues and source code are all in `GitHub <https://www.github.com/WhyNotHugo/django-renderpdf>`_.
+Issues and source code are all in `Sourcehut <https://sr.ht/~whynothugo/django-renderpdf>`_.
 
 Background
 ----------

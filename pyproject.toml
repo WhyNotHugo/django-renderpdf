@@ -47,10 +47,10 @@ lint = [
 ]
 
 [project.urls]
-repository = "https://github.com/WhyNotHugo/django-renderpdf/"
+repository = "https://git.sr.ht/~whynothugo/django-renderpdf"
 documentation = "https://django-renderpdf.readthedocs.io/"
-changelog = "https://github.com/WhyNotHugo/django-renderpdf/blob/main/CHANGELOG.rst"
-issues = "https://github.com/WhyNotHugo/django-renderpdf/issues/"
+changelog = "https://git.sr.ht/~whynothugo/django-renderpdf/tree/main/item/CHANGELOG.rst"
+issues = "https://sr.ht/~whynothugo/django-renderpdf/trackers"
 funding = "https://whynothugo.nl/sponsor/"
 
 [tool.coverage.run]
